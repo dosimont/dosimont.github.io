@@ -42,6 +42,7 @@ GEM
     jekyll-sitemap (0.8.0)
     jekyll-watch (1.2.1)
       listen (~> 2.7)
+    json (1.8.2)
     kramdown (1.6.0)
     liquid (2.6.2)
     listen (2.8.5)
@@ -88,5 +89,7 @@ PLATFORMS
 
 DEPENDENCIES
   jekyll
+  jekyll-coffeescript
   jekyll-sitemap
+  json
   octopress (~> 3.0.0.rc.12)

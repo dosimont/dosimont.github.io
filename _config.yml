@@ -1,6 +1,6 @@
 # Site wide configuration
 
-title:            Site Title
+title:            Damien Dosimont's Personal Web Site
 locale:           en_US
 url:              
 
@@ -26,21 +26,21 @@ kramdown:
 
 # Site owner
 owner:
-  name: Your Name
+  name: Damien Dosimont
   avatar: bio-photo.jpg
-  bio: "Describe your self."
-  email: 
+  bio: "Researcher in Computer Sciences"
+  email: damien.dosimont[at]imag[dot]fr
   disqus-shortname: 
-  twitter: #username
-  facebook: #username
+  twitter:
+  facebook:
   google:
-    plus: #username
+    plus:
     analytics: 
     verify: 
     ad-client: 
     ad-slot: 
   bing-verify: 
-  github: #username
+  github: dosimont
   stackoverflow: #http://stackoverflow.com/users/123456/username
   linkedin: #username
   xing: #username
