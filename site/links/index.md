@@ -9,4 +9,12 @@ image:
   feature: sample-image-1.jpg
 ---
 
-Under construction
+### Friends
+
+- **[Chaos E.T. Sexual](https://chaosetsexual.bandcamp.com/)**: an interesting and inspired band, playing a kind of drone/dub/metal. Listen it!
+
+- **[Hugo Hyolle]**: take a look at my friend Hugo's work, who roams Paris' suburbs to provide us with pretty pictures ;-)
+
+- **[Generoso Pagano](http://mescal.imag.fr/membres/generoso.pagano/)**: web site of my travel buddy, the main developer of [Framesoc](http://mescal.imag.fr/membres/generoso.pagano/).
+
+
