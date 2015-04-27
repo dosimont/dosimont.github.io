@@ -18,7 +18,7 @@ Ocelotl is integrated into Framesoc, a generic trace management and analysis inf
 ### LPAggreg library (main developper)
 
 LPAggreg is a library written in C++ and that enables to aggregate multidimensional and discrete generic systems over one or several dimensions.
-It is built upon an aggregation method design by Robin Lamarche-Perrin.  
+It is built upon an aggregation method designed by Robin Lamarche-Perrin.  
 **LPaggreg's github repository: [https://github.com/dosimont/lpaggreg](https://github.com/dosimont/lpaggreg)**  
 **JNI wrapper github repository: [https://github.com/dosimont/lpaggregjni](https://github.com/dosimont/lpaggregjni)**
 
