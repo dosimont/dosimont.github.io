@@ -1,6 +1,6 @@
 # Site wide configuration
 
-title:            Damien Dosimont's Personal Web Site
+title:            Damien Dosimont's Web Site
 locale:           en_US
 url:              
 
@@ -28,7 +28,7 @@ kramdown:
 owner:
   name: Damien Dosimont
   avatar: bio-photo.jpg
-  bio: "Researcher in Computer Sciences"
+  bio: "Researcher in Computer Sciences at Inria"
   email: damien.dosimont[at]imag[dot]fr
   disqus-shortname: 
   twitter:

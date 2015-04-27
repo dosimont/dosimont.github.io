@@ -13,7 +13,7 @@ image:
     [damien.dosimont[at]imag[dot]fr](damien.dosimont[at]imag[dot]fr)
 - Telephone: 
     +33 4 56 52 71 44
-- Professional Adress:  
+- Professional Address:  
     &nbsp;&nbsp;&nbsp;&nbsp;Office B108  
     &nbsp;&nbsp;&nbsp;&nbsp;Bâtiment Inria  
     &nbsp;&nbsp;&nbsp;&nbsp;655 avenue de l'Europe  
