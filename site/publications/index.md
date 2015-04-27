@@ -9,4 +9,4 @@ image:
   feature: sample-image-1.jpg
 ---
 
-Under construction
+The full list of my publications is available on [Google Scholar](https://scholar.google.fr/citations?user=0PW47R4AAAAJ)
