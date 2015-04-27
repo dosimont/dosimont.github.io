@@ -10,17 +10,18 @@ image:
 ---
 
 - Email: 
-        
       [damien.dosimont[at]imag[dot]fr](damien.dosimont[at]imag[dot]fr)
 - Telephone: 
-  
       +33 4 56 52 71 44
 - Office adress:
-
       Office B108
+      
       Bâtiment Inria
+      
       655 avenue de l'Europe
+      
       38334 Saint-Ismier cedex
+      
       France
      
 
