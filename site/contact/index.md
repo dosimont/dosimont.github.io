@@ -9,15 +9,15 @@ image:
   feature: sample-image-1.jpg
 ---
 
-## Email
+### Email
 
 [damien.dosimont[at]imag[dot]fr](damien.dosimont[at]imag[dot]fr)
   
-## Telephone
+### Telephone
 
 +33 4 56 52 71 44
   
-## Professional Address
+### Professional Address
 
 Office B108  
 Bâtiment Inria  
