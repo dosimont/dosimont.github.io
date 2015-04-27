@@ -1,9 +1,7 @@
 ---
-layout: page
+layout: home
 title: Presentation
 tags: []
-comments: true
-share: false
 image:
   feature: sample-image-1.jpg
 
