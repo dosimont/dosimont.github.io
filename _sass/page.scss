@@ -47,6 +47,7 @@ body {
 	@include grid(12,10);
 	@include prefix(12,1);
 	@include suffix(12,1);
+        background-color: $red;
 	margin-bottom: 1em;
 	float: none;
 	display: block;
