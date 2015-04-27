@@ -12,7 +12,7 @@ image:
 ### List of Talks
 
 - **Ocelotl tutorial**, February 2015 (Bordeaux) [![PDF](/images/pdf.png)](/site/talks/pdf/2015_02_bordeaux_otl_tutorial.pdf)
-- **SoC-Trace SET 2.0 meeting**, December 2014 (Inria Grenoble) [![PDF](/images/pdf.png)](/site/talks/pdf/2014_12_grenoble_soctrace.pdf)
+- **SoC-Trace SET 2.0 meeting**, December 2014 (Grenoble) [![PDF](/images/pdf.png)](/site/talks/pdf/2014_12_grenoble_soctrace.pdf)
 - **MOAIS 2014 seminary**, November 2014 (Les Trolles) [![PDF](/images/pdf.png)](/site/talks/pdf/2014_11_trolles_moais.pdf)
 - **Visu 2014 day**, November 2014 (Paris) [![PDF](/images/pdf.png)](/site/talks/pdf/2014_11_paris_visu2014.pdf)
 - **BSC 3 days meeting**, October 2014 (Barcelona) [![PDF](/images/pdf.png)](/site/talks/pdf/2014_10_stuttgart_iptw14.pdf)
