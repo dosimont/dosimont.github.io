@@ -29,7 +29,7 @@ image:
 - **Memory Organisation Cartography & Analysis**. David Beniamine, Youenn Corre, Damien Dosimont, Guillaume Huard, *Inria Research Report RR-8694*, March 2015. [![PDF](/images/pdf.png)](https://hal.inria.fr/hal-01130478/document)
 - **A Trace Macroscopic Description based on Time Aggregation**, Damien Dosimont, Lucas Mello Schnorr, Guillaume Huard, Jean-Marc Vincent, *Inria Research Report RR-8524*, April 2014. [![PDF](/images/pdf.png)](https://hal.inria.fr/hal-00981020/document)
 - **Trace Management and Analysis for Embedded Systems**, Generoso Pagano, Damien Dosimont, Guillaume Huard, Vania Marangozova-Martin, Jean-Marc Vincent, *Inria Research Report RR-8304*, May 2013. [![PDF](/images/pdf.png)](https://hal.inria.fr/hal-00821907/document)
-
-#### Google Scholar
+  
+  
 
 The full list of my publications is also available on [Google Scholar](https://scholar.google.fr/citations?user=0PW47R4AAAAJ)
