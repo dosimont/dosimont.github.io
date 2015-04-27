@@ -4,13 +4,16 @@
   url: /site/research/
 
 - title: Projects
-  url: /site/projects
+  url: /site/projects/
+
+- title: Publications
+  url: /site/publications/
 
 - title: Talks
-  url: /site/talks
+  url: /site/talks/
 
 - title: Softwares
-  url: /site/softwares
+  url: /site/softwares/
 
 - title: Teaching
   url: /site/teaching/
