@@ -46,8 +46,12 @@
         <h3><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></h3>
         <p>{{ post.excerpt | strip_html | truncate: 160 }}</p>
       {% endif %}
-    </article>
     {% endfor %}
+      {% if page.share != false %}
+        <hr />
+        {% include _social-share.html %}
+      {% endif %}
+    </article>
   </div><!-- /#index -->
 </div><!-- /#main -->
 
