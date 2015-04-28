@@ -41,9 +41,9 @@
       <h3><a href="{{ site.url}}/posts/">News</a></h3>
     {% for post in site.posts limit:5 %}    
       {% if post.link %}
-        <h4 class="link-post"><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a> <a href="{{ post.link }}" target="_blank" title="{{ post.title }}"><i class="fa fa-link"></i></h4>
+        <h3 class="link-post"><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a> <a href="{{ post.link }}" target="_blank" title="{{ post.title }}"><i class="fa fa-link"></i></h3>
       {% else %}
-        <h4><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></h4>
+        <h3><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></h3>
         <p>{{ post.excerpt | strip_html | truncate: 160 }}</p>
       {% endif %}
     </article>
