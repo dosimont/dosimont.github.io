@@ -39,7 +39,7 @@ The research results I consider most important are available in the publication 
 
 ### Software
 
-The visualization methods described in my works and publications are implemented in free softawre tools, described [here](/site/software/).
+The visualization methods described in my works and publications are implemented in free software tools, described [here](/site/software/).
 
 ### Main Collaborations
 
