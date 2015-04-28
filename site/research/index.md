@@ -10,7 +10,9 @@ image:
 ---
 
 My research interests concern mainly visualization techniques that are destined to the analysis of complex applications.
-I focus on the *post-mortem* analysis of execution traces, which contains information about the events and the resources of the application. The visualisation methods I propose to represent the content of these traces are based on data and visual aggregations, in order to reduce their complexity and provide a scalable representation, in particular when their volume is huge (up to several terabytes, several billions of events). These methods are efficient to detect anomalies that occur during the execution on multimedia applications on embedded systems, but also in parallel applications performing scientific computing on grids. Here is a summary of topics I am interested in:  
+I focus on the *post-mortem* analysis of execution traces, which contains information about the events and the resources of the application. The visualisation methods I propose to represent the content of these traces are based on data and visual aggregations, in order to reduce their complexity and provide a scalable representation, in particular when their volume is huge (up to several terabytes, several billions of events). These methods are efficient to detect anomalies that occur during the execution on multimedia applications on embedded systems, but also in parallel applications performing scientific computing on grids. 
+
+Here is a summary of topics I am interested in:  
 
 - Performance Visualization Analysis
 - Data Aggregation
