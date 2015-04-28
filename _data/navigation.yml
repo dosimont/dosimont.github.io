@@ -3,9 +3,6 @@
 - title: Research
   url: /site/research/
 
-- title: Projects
-  url: /site/projects/
-
 - title: Publications
   url: /site/publications/
 
@@ -17,6 +14,9 @@
 
 - title: Teaching
   url: /site/teaching/
+
+- title: Resume
+  url: /site/resume/
 
 - title: Posts
   url: /site/posts/
