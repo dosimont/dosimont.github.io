@@ -47,12 +47,12 @@
         <p>{{ post.excerpt | strip_html | truncate: 160 }}</p>
       {% endif %}
     {% endfor %}
+    </article>
+  </div><!-- /#index -->
       {% if page.share != false %}
         <hr />
         {% include _social-share.html %}
       {% endif %}
-    </article>
-  </div><!-- /#index -->
 </div><!-- /#main -->
 
 <div class="footer-wrap">
