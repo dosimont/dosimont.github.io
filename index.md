@@ -12,7 +12,7 @@ image:
 ### Presentation
 
 
-<div class="align-center">
+<div class="align-justify">
 I am a Ph.D student at [Inria](http://www.inria.fr/) since February 2012, within the [MOAIS](http://moais.imag.fr/) team.
 My main thematic is the trace visualization.
 More specifically, my work focuses on designing scalable visualizations that enable the analysis of complex embedded and parallel systems.
