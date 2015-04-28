@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Talks
+title: List of Talks
 tags: []
 modified: 2014-08-08T20:53:07.573882-04:00
 comments: true
@@ -8,8 +8,6 @@ share: false
 image:
   feature: sample-image-1.jpg
 ---
-
-### List of Talks
 
 - **Ocelotl tutorial**, February 2015 (Bordeaux) [![PDF](/images/pdf.png)](/site/talks/pdf/2015_02_bordeaux_otl_tutorial.pdf)
 - **SoC-Trace SET 2.0 meeting**, December 2014 (Grenoble) [![PDF](/images/pdf.png)](/site/talks/pdf/2014_12_grenoble_soctrace.pdf)
