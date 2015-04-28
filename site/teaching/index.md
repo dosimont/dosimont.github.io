@@ -4,14 +4,13 @@ title: Teaching
 tags: []
 modified: 2014-08-08T20:53:07.573882-04:00
 comments: true
-share: false
 image:
   feature: sample-image-1.jpg
 ---
 
 
 
-### Polytech'Grenoble Engineering School (2012/2014)
+### [Polytech'Grenoble](http://www.polytech-grenoble.fr/) Engineering School (2012/2014)
 
 #### 2013/2014 (69h)
 
