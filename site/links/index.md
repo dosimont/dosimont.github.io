@@ -10,7 +10,7 @@ image:
 ---
 ### My Links
 
-- **[github](https://github.com/dosimont)**
+- **[Github](https://github.com/dosimont)**: my Github account
 
 
 ### Friends
