@@ -9,7 +9,7 @@ image:
   feature:
 date: 2015-04-28T04:03:01+02:00
 ---
-My Ph.D thesis defense will take place on **Wednesday the 10th of June 2015, 13:30 PM (UTC+2) ** in the *Grand Amphithéâtre* of **Inria Grenoble Rhône Alpes**  
+My Ph.D thesis defense will take place on **Wednesday the 10th of June 2015, 13:30 PM (UTC+2)** in the *Grand Amphithéâtre* of **Inria Grenoble Rhône Alpes**  
 655 Avenue de l'Europe  
 38330 Montbonnot-Saint-Martin  
 France
