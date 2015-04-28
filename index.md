@@ -11,8 +11,6 @@ image:
 
 ### Presentation
 
-
-<div class="align-justify">
 I am a Ph.D student at [Inria](http://www.inria.fr/) since February 2012, within the [MOAIS](http://moais.imag.fr/) team.
 My main thematic is the trace visualization.
 More specifically, my work focuses on designing scalable visualizations that enable the analysis of complex embedded and parallel systems.
@@ -20,4 +18,3 @@ My research is currently funded by the [SoC-Trace](http://www.minalogic.com/TPL_
 I am also involved in the [SONGS](http://infra-songs.gforge.inria.fr/) project, and within the French-Brazilian international laboratory, [LICIA](http://licia-lab.org/index-en.html). 
 In parallel, I teach in [Polytech'Grenoble](http://www.polytech-grenoble.fr) engineer school students.  
 I hold a Master degree (2011) in Computer Science, specialty in [Architecture and Integrated System Design](http://www-master.ufr-info-p6.jussieu.fr/lmd/specialite/sesi/) and a Bachelor degree (2009) in [Electronics](http://www.licence.elec.upmc.fr/), both from [UPMC](http://www.upmc.fr/), France.
-</div>
