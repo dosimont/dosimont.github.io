@@ -1,6 +1,5 @@
 ---
 layout: home
-title: Home
 subtitle : Presentation
 tags: []
 comments: true
