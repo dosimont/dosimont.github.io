@@ -27,7 +27,7 @@ kramdown:
 owner:
   name: Damien Dosimont
   avatar: bio-photo.jpg
-  bio: "Researcher in Computer Science at Inria"
+  bio: "Ph.D. in Computer Science"
   email: damien.dosimont[at]imag[dot]fr
   disqus-shortname: 
   twitter:
@@ -41,7 +41,7 @@ owner:
   bing-verify: 
   github: dosimont
   stackoverflow: #http://stackoverflow.com/users/123456/username
-  linkedin: #username
+  linkedin: https://fr.linkedin.com/in/dosimont
   xing: #username
   instagram: #username
   lastfm: #username
