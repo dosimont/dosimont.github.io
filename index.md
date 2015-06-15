@@ -7,7 +7,7 @@ image:
   feature: sample-image-1.jpg
 
 ---
-I am a researcher in Computer Science. My main thematic is the trace visualization.
+I am a researcher in computer science. My main thematic is the trace visualization.
 More specifically, my work focuses on designing scalable visualizations that enable the analysis of complex embedded and parallel systems.
 
 I used to be a contractual researcher at [Inria](http://www.inria.fr/), from February 2012 to May 2015, within the [MOAIS](http://moais.imag.fr/) team.
