@@ -8,4 +8,4 @@ image:
   feature: sample-image-1.jpg
 ---
 
-Under construction
+## [Short resume](/site/resume/cv_short_en.pdf)
