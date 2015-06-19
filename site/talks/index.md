@@ -10,6 +10,7 @@ image:
 
 ### 2015
 
+- **Thesis defense**, June 2015 (Grenoble) [![PDF](/images/pdf.png)](/site/talks/pptx/2015_06_grenoble_thesis_defense.pptx)
 - **Ocelotl tutorial**, February 2015 (Bordeaux) [![PDF](/images/pdf.png)](/site/talks/pdf/2015_02_bordeaux_otl_tutorial.pdf)
 
 ### 2014
