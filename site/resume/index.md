@@ -8,4 +8,4 @@ image:
   feature: sample-image-1.jpg
 ---
 
-## [Short resume](/site/resume/cv_short_en.pdf)
+### [Short resume](/site/resume/cv_short_en.pdf)
