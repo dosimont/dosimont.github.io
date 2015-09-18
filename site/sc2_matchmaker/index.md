@@ -1,11 +1,11 @@
 ---
 layout: sc2
-title: SC2 Matchmaker results 
+title: SC2 Matchmaker
 tags: []
+modified:
 comments: false
-share: false
 image:
-feature: sample-image-1.jpg
+  feature: sample-image-1.jpg
 ---
 
 | Name     | Rank | Overall     | Terran     | Zerg       | Protoss    |
