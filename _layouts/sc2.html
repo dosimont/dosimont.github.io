@@ -8,7 +8,7 @@
 </head>
 
 <body class="sc2">
-<div style="text-align:center">
+
 {% include _browser-upgrade.html %}
 
 {% include _navigation.html %}
@@ -29,8 +29,12 @@
 {% endif %}
 
 <div id="main" role="main">
+    <div class="article-author-side">
+  </div>
   <article class="page">
+    <div style="text-align:center">
     <h1>{{ page.title }}</h1>
+    </div>
     <div class="article-wrap">
       {{ content }}
       {% if page.share != false %}
@@ -44,7 +48,12 @@
   </article>
 </div><!-- /#index -->
 
+<div class="footer-wrap">
+  <footer>
+  </footer>
+</div><!-- /.footer-wrap -->
+
 {% include _scripts.html %}          
-</div>
+
 </body>
 </html>
