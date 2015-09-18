@@ -6,7 +6,7 @@ comments: false
 share: false
 image:
 feature: sample-image-1.jpg
- ---
+---
 
 | Name     | Rank | Overall     | Terran     | Zerg       | Protoss    |
 |----------|------|-------------|------------|------------|------------|
