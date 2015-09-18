@@ -8,7 +8,7 @@ image:
   feature: sample-image-1.jpg
 ---
 
-| Name     | Rank | Overall     | Terran     | Zerg       | Protoss    |
+|Name     |Rank |Overall     |Terran     |Zerg       |Protoss    |
 |----------|------|-------------|------------|------------|------------|
 | Pierre   | 1    | 1401 (6/5)  | 1400 (1/1) | 1327 (1/4) | 1440 (2/0) |
 | Florent  | 2    | 1268 (7/7)  | 1398 (2/2) | 1180 (2/3) | 1310 (2/0) |
