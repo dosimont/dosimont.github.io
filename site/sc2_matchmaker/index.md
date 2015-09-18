@@ -1,6 +1,6 @@
 ---
 layout: sc2
-title: SC2 Matchmaker results 
+title: SC2 Matchmaker
 tags: []
 comments: false
 share: false
@@ -16,4 +16,4 @@ feature: sample-image-1.jpg
 | Matthieu | 4    | 1216 (2/9)  | 1160 (0/2) | 1340 (1/4) | 1167 (1/3) | 1200 (0/0) |
 | Maxime   | 5    | 1202 (6/6)  | 1168 (2/4) | 1200 (0/0) | 1241 (4/2) | 1200 (0/0) |
 | Valentin | 6    | 1200 (0/0)  | 1200 (0/0) | 1200 (0/0) | 1200 (0/0) | 1200 (0/0) |
-| Cathy    | 7    | 1142 (2/5)  | 1142 (2/5) |            |            |            |
+| Cathy    | 7    | 1142 (2/5)  | 1142 (2/5) |None        |None        |None        |
