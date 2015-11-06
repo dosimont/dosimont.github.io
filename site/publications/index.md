@@ -23,7 +23,7 @@ image:
 - **Agrégation temporelle pour l'analyse de traces volumineuses**. Damien Dosimont, Guillaume Huard, Jean-Marc Vincent, *10ème Atelier en Evaluation de Performances*, Sophia Antipolis, June 2014. [![PDF](/images/pdf.png)](https://hal.inria.fr/hal-01065862/document)
 - **La visualisation de traces, support à l'analyse, déverminage et optimisation d'applications de calcul haute performance**. Damien Dosimont, Guillaume Huard, Jean-Marc Vincent, *Atelier Visualisation d'informations, interaction et fouille de données (VIF) de la 13e Conférence Francophone sur l'Extraction et la Gestion des Connaissances (EGC'2013)*, pages 55-66, Toulouse, January 2013. [![PDF](/images/pdf.png)](https://hal.inria.fr/hal-01065891/document)
 
-### Ph.D.  Thesis
+### Ph.D. Thesis
 
 - **Agrégation spatiotemporelle pour la visualisation de traces d'exécution** *(Spatiotemporal Aggregation for Execution Trace Visualization)*. Damien Dosimont, June 2015. [![PDF](/images/pdf.png)](https://hal.inria.fr/tel-01176440/document)
 
