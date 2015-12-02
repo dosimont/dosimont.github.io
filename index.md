@@ -10,7 +10,7 @@ image:
 I am a researcher in computer science. My main thematic is the trace visualization.
 More specifically, my work focuses on designing scalable visualizations that enable the analysis of complex embedded and parallel systems.
 
-I am currently a postdoctoral researcher at the [Barcelona Supercomputing Center (BSC)](https://www.bsc.es/), within the performance tools team.
+I currently hold a postdoctoral researcher position at the [Barcelona Supercomputing Center (BSC)](https://www.bsc.es/), within the performance tools team.
 
 I used to be a contractual researcher at [Inria](http://www.inria.fr/), from February 2012 to May 2015, within the [MOAIS](http://moais.imag.fr/) team.
 My research was funded by the [SoC-Trace](http://www.minalogic.com/TPL_CODE/TPL_PROJET/PAR_TPL_IDENTIFIANT/2717/15-annuaire-innovations-technologiques-nanotechnologie-systeme-embarque.htm) project, which gathers academic partners such as [Inria](http://www.inria.fr/), [UJF](https://www.ujf-grenoble.fr/), [LIG](https://www.liglab.fr/), and industrial companies, like [STMicroelectronics](http://www.st.com/), [ProbaYes](http://www.probayes.com/), and [Magillem](http://www.magillem.com/).
