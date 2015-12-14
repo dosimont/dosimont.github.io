@@ -43,12 +43,6 @@ Now, let's compile BT, for 4 processes, class A.
     cd ..
     make BT NPROCS=4 CLASS=A
 
+## Install Extrae
 
-
-
-
-
-NASPB
-  `cd config`
-`mv make.def.template make.def`
-replace f77 by mpif77
+Download Extrae on the BSC Performance Tools web page. Here, we'll use the version *OpenMPI 1.6; PAPI 4.1.4*
