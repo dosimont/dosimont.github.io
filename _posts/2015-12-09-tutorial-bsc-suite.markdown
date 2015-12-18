@@ -21,7 +21,7 @@ First, I recommand to install the BSC Performance tools, from the [website](http
 Paraver is a tool which provides several ways to analyze a trace. The main visualization is a space-time representation, showing the application behavior over time, for each process/task/resource.
 There is also an interesting mechanism, which consists in loading *configuration files*, in order to build a representation (spatiotemporal, statistics, table, etc.) based on a particular aspect or metrics (for instance MPI events, communications, clustering, etc.). Last but not least, the tool enables to filter trace events, cut time periods, and perform other operations that can help to reduce the trace size to facilitate the analysis.
 
-I strongly advise to install Paraver using the binaries, since compile from the sources may be tedious.
+I strongly advise to install Paraver using the binaries, since compiling from the sources may be tedious.
 In this tutorial, we assume you put the Paraver binary directory in your PATH, in order to launch paraver from anywhere using the command line.
 
 *The Paraver version used in this tutorial is 4.5.8.*
@@ -104,7 +104,7 @@ Now, let's create the scripts which will be used to launch the job.
     @ touch job.sh trace.sh
     @ chmod 755 job.sh trace.sh
 
-Let's describe brievely what we should put in these scripts:
+Let's describe briefly what we should put in these scripts:
 
 ### job.sh
 
@@ -183,7 +183,7 @@ First, you should get an example of the clustering configuration file, provided 
 
     $ cp ${CLUSTERING_HOME}/share/example/cluster.xml .
 
-If we applied direcly the clustering without set the parameters, we would have to deal with too many cpu bursts. Some of them are not interesting: they are too short and don't represent a significant part in the computation. As our main objective is to focus on part of the application we can improve, they are not relevant to us. To discard these cpu bursts, we use the stat tool.
+If we applied direcly the clustering without set the parameters, we would have to deal with too many cpu bursts. Some of them are not interesting: they are too short and don't represent a significant part in the computation. As our main objective is to focus on parts of the application we can improve, they are not relevant to us. To discard these cpu bursts, we use the stat tool.
 
     $ stats bt.B.64.prv -bursts_histo
 
@@ -226,6 +226,14 @@ Now, we want to set espilon and the min points values, that are required to perf
 A value of 10 points is recommended, but we still have to tune espilon. Basically, a higher value of epsilon gives big clusters, but requires a long computation time. On the contrary, a small value of epsilon provides small clusters, and necessitates a short computation time. The objective is to find relevant clusters, by grouping only points that are in the same area. This necessitates to try different value of epsilon to find a good trade-off.
 
     $ BurstClustering -d cluster.xml -i bt.B.64.prv -o bt.B.64.clustered.prv
+
+## Shneiderman's mantra is never far...
+
+You may see that the computation time required to generate the clusters is long, even with a small espilon: in my case, the trace I generated was 1.6 GB. Even by removing non relevant points, the number of remaining points is too high for the clustering algorithm. It is thus necessary to reduce the trace size.
+To perform this operation, we propose to use Paraver.
+First, open the trace:
+
+    $ wxparaver bt.B.64.prv
 
 
 
