@@ -14,7 +14,7 @@ This post summarizes the different steps to take in hands the tools designed by 
 
 ## Install the BSC Performance tools
 
-First, I recommand to install the BSC Performance tools, from the [website](https://www.bsc.es/computer-sciences/performance-tools/downloads)
+First, I recommand to install the BSC Performance tools, from the [website](https://www.bsc.es/computer-sciences/performance-tools/downloads).
 
 ### Paraver
 
@@ -24,7 +24,7 @@ There is also an interesting mechanism, which consists in loading *configuration
 I strongly advise to install Paraver using the binaries, since compile from the sources may be tedious.
 In this tutorial, we assume you put the Paraver binary directory in your PATH, in order to launch paraver from anywhere using the command line.
 
-*The Paraver version used in this tutorial is 4.5.8*
+*The Paraver version used in this tutorial is 4.5.8.*
 
 ### Extrae
 
@@ -44,13 +44,13 @@ The Clustering Suite is mainly [Juan Gonzalez](https://www.researchgate.net/prof
 
 You can install it from the sources of from the binary. Don't forget to put the binary directory in your PATH.
 
-*The Clustering version used in this tutorial is 2.6.4*.
+*The Clustering version used in this tutorial is 2.6.4.*
 
 ### Folding
 
 Folding is [Harald Servat](https://www.bsc.es/es/about-bsc/staff-directory/servat-gelabert-harald)'s work. It enables to compute performance metrics from repetitive delimited regions, thanks to a sampling mechanism used during the tracing, and the clustering result.
 
-*We use in this tutorial a development version*
+*We use, in this tutorial, a development version.*
 
 
 ## Compile the BT application
@@ -187,10 +187,13 @@ If we applied direcly the clustering without set the parameters, we would have t
 
     $ stats bt.B.64.prv -bursts_histo
 
-This generates a plot, containing a grpah, showing the number of bursts as a function of their duration, and an histogram, showing the percentage of running time as a function of the duration.
-The idea is to select the duration, above which most of the bursts are contained, but whose total running time is not significant, to discard the maximum of cpu bursts without hinder the analysis.
+This generates a plot `bt.B.64.bursts.gnuplot`, containing a graph, showing the number of bursts as a function of their duration, and an histogram, showing the percentage of running time as a function of the duration. Let's open it using this command:
+
+    $ gnuplot -p bt.B.64.bursts.gnuplot
+
+The idea is to select the duration, below which most of the bursts are contained, but whose total running time is not significant, to discard the maximum of cpu bursts without hinder the analysis.
 In the illustration, whe choose 100 us.
-Now, we put this value in the cluster.xml file:
+We put this value in the cluster.xml file, in the `duration_filter` field:
 
     <clustering_definition
     use_duration="no"
@@ -198,6 +201,32 @@ Now, we put this value in the cluster.xml file:
     normalize_data="yes"
     duration_filter="100"
     threshold_filter="0">
+
+Now, let's have an overview of the point that are discarded:
+
+    $ ClusteringDataExtractor -d cluster.xml -i bt.B.64.prv
+    $ gnuplot -p bt.B.64.IPC.PAPI_TOT_INS.gnuplot
+
+On this picture, we can see that we discarded many points, in black, but there is still many points left, whose coordinates are close to black ones: some of them could be removed to facilitate the analysis.
+By zooming, we can see several clusters of points. We can consider to discard clusters whose total instruction number is low, since the IPC number which is associated is also weak.
+To do this, we modify the cluster.xml file again, and filter the total instruction number by discarding points that are less than 8e5 instructions:
+
+    <single_event apply_log="yes" name="PAPI_TOT_INS">
+    <event_type>42000050</event_type>
+    <range_min>8e5</range_min> 
+    </single_event>
+
+Now, we want to set espilon and the min points values, that are required to perform the clustering algorithm:
+
+    <clustering_algorithm name="DBSCAN">
+    <epsilon>.001</epsilon>
+    <min_points>10</min_points>
+    </clustering_algorithm>
+
+A value of 10 points is recommended, but we still have to tune espilon. Basically, a higher value of epsilon gives big clusters, but requires a long computation time. On the contrary, a small value of epsilon provides small clusters, and necessitates a short computation time. The objective is to find relevant clusters, by grouping only points that are in the same area. This necessitates to try different value of epsilon to find a good trade-off.
+
+    $ BurstClustering -d cluster.xml -i bt.B.64.prv -o bt.B.64.clustered.prv
+
 
 
 
