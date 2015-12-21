@@ -84,7 +84,7 @@ Now, let's compile BT, let's say for 64 processes, class B.
     @ cd ..
     @ make bt NPROCS=64 CLASS=B
 
-## Configuring the job
+## Configure the job
 
 Once we have compiled the program, we should copy the binary into the directory that will be used to launch the job.
 Indeed, on Marenostrum, we are strongly advised to launch jobs from the *scratch* or *group* directory, because of the file system configuration (see [Marenostrum documentation](https://www.bsc.es/support/MareNostrum3-ug.pdf))
@@ -134,7 +134,7 @@ This file is a wrapper that is used to enable the application tracing, using the
     export LD_PRELOAD=${EXTRAE_HOME}/lib/libmpitracef.so
     ./$*
 
-## Configuring the tracing
+## Configure the tracing
 
 Once we have written the scripts (and adapted the parameters if required), we have to configure Extrae through its configuration file, extrae.xml.
 First, copy this file from the example directory of Extrae:
@@ -233,7 +233,7 @@ A value of 10 points is recommended, but we still have to tune espilon. Basicall
 
     $ BurstClustering -d cluster.xml -i bt.B.64.prv -o bt.B.64.clustered.prv
 
-## Shneiderman's mantra is never far...
+### Shneiderman's mantra is never far...
 
 You may see that the computation time required to generate the clusters is long, even with a small espilon: in my case, the trace I generated was 1.6 GB. Even by removing non relevant points, the number of remaining points is too high for the clustering algorithm. It is thus necessary to reduce the trace size.
 To perform this operation, we propose to use Paraver.
@@ -250,7 +250,7 @@ You will be able (or not) to open this new trace whose size is reduced. If the s
 
 ![](http://dosimont.github.com/images/bsc_cepba/paraver_filter.png)
 
-Now, open a space-time representation, and zoom-in on the main phase. 
+Now, open a space-time representation, and zoom-in on the main phase (here, in purple). 
 
 
 ![](http://dosimont.github.com/images/bsc_cepba/paraver_global.png)
@@ -262,14 +262,40 @@ Continue to zoom-in until you see some iterations/regular patterns.
 Open the filter/cutter tool again, and this time, select *cutter*. Select a region containing about 10 iterations, using the space-time representation. Don't forget to change the input, which should be the original trace (not filtered), instead of the filtered trace.
 You eventually get a little trace. Repeat the full clustering process again.
 
-## Influence of clustering parameters
+### Influence of clustering parameters
 
-Let's show the result of the clustering process, applied with different values of epsilon:
+Let's show the result of the clustering, with different values of epsilon:
 
 ![](http://dosimont.github.com/images/bsc_cepba/clustering_0.001.png)
 ![](http://dosimont.github.com/images/bsc_cepba/clustering_0.01.png)
 ![](http://dosimont.github.com/images/bsc_cepba/clustering_0.05.png)
+
+Example of the clustered trace (eps=0.0) opened with paraver and showing cluster ID (this necessitates to load the related configuration file).
+We easily see the three clusters over time. Their alternance makes a regular pattern (red, yellow, green, red, green, red green).
+
+![](http://dosimont.github.com/images/bsc_cepba/paraver_clusters.png)
     
+## Sampling/folding
+
+Now, we are interested in using the sampling/folding in order to get insight about each cluster.
+We have to repeat all the steps from the tracing configuration.
+
+This time, in the extrae.xml configuration file, we configure the sampling as follows:
+
+    <sampling enabled="yes"
+    type="default"
+    period="50m"
+    variability="10m" />
+
+Then, launch your experiment, get the trace, and apply the clustering.
+Once it's done, you have to apply the folding using this command:
+
+    folding bt.B.64.choped1.clustered.prv "Cluster ID"
+
+This will generate a directory that contains several plots.
+
+... TO BE CONTINUED
+
 
 
 
