@@ -191,21 +191,25 @@ This generates a plot `bt.B.64.bursts.gnuplot`, containing a graph, showing the 
 
     $ gnuplot -p bt.B.64.bursts.gnuplot
 
+![](bursts.png)
+
 The idea is to select the duration, below which most of the bursts are contained, but whose total running time is not significant, to discard the maximum of cpu bursts without hinder the analysis.
-In the illustration, whe choose 100 us.
+In the illustration, whe choose 10 us.
 We put this value in the cluster.xml file, in the `duration_filter` field:
 
     <clustering_definition
     use_duration="no"
     apply_log="yes"
     normalize_data="yes"
-    duration_filter="100"
+    duration_filter="10"
     threshold_filter="0">
 
 Now, let's have an overview of the point that are discarded:
 
     $ ClusteringDataExtractor -d cluster.xml -i bt.B.64.prv
     $ gnuplot -p bt.B.64.IPC.PAPI_TOT_INS.gnuplot
+
+![](ipc_without_range.png)
 
 On this picture, we can see that we discarded many points, in black, but there is still many points left, whose coordinates are close to black ones: some of them could be removed to facilitate the analysis.
 By zooming, we can see several clusters of points. We can consider to discard clusters whose total instruction number is low, since the IPC number which is associated is also weak.
@@ -215,6 +219,8 @@ To do this, we modify the cluster.xml file again, and filter the total instructi
     <event_type>42000050</event_type>
     <range_min>8e5</range_min> 
     </single_event>
+
+![](ipc_range.png)
 
 Now, we want to set espilon and the min points values, that are required to perform the clustering algorithm:
 
