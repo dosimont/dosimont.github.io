@@ -241,12 +241,26 @@ First, open the trace:
 
     $ wxparaver bt.B.64.prv
 
+A wild message will appear since the trace is too huge for paraver:
 
+![](http://dosimont.github.com/images/bsc_cepba/paraver_msg.png)
 
+Accept (Yes). In the dialog box that opens, select filer, and remove the events and the communications. Save this as a new paraver trace.
+You will be able (or not) to open this new trace whose size is reduced. If the size is sill too huge, don't hesitate to remove some states until the generated trace size is reasonable enough.
 
+![](http://dosimont.github.com/images/bsc_cepba/paraver_filter.png)
 
+Now, open a space-time representation, and zoom-in on the main phase. Continue to zoom-in until you see some iterations/regular patterns.
+Open the filter/cutter tool again, and this time, select *cutter*. Select a region containing about 10 iterations using the space-time representation. Don't forget to change the input, which should be the original trace (not filtered), instead of the filtered trace.
+You eventually get a little trace. Repeat the full clustering process again.
 
+## Influence of clustering parameters
 
+Let's show the result of the clustering process, applied with different values of epsilon:
+
+![](http://dosimont.github.com/images/bsc_cepba/clustering_0.001.png)
+![](http://dosimont.github.com/images/bsc_cepba/clustering_0.01.png)
+![](http://dosimont.github.com/images/bsc_cepba/clustering_0.05.png)
     
 
 
