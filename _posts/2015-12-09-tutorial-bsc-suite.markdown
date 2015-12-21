@@ -191,7 +191,7 @@ This generates a plot `bt.B.64.bursts.gnuplot`, containing a graph, showing the 
 
     $ gnuplot -p bt.B.64.bursts.gnuplot
 
-![](http://dosimont.github.com/images/ipc_cepba/bursts.png)
+![](http://dosimont.github.com/images/bsc_cepba/bursts.png)
 
 The idea is to select the duration, below which most of the bursts are contained, but whose total running time is not significant, to discard the maximum of cpu bursts without hinder the analysis.
 In the illustration, whe choose 10 us.
