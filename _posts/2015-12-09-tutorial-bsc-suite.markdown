@@ -250,8 +250,16 @@ You will be able (or not) to open this new trace whose size is reduced. If the s
 
 ![](http://dosimont.github.com/images/bsc_cepba/paraver_filter.png)
 
-Now, open a space-time representation, and zoom-in on the main phase. Continue to zoom-in until you see some iterations/regular patterns.
-Open the filter/cutter tool again, and this time, select *cutter*. Select a region containing about 10 iterations using the space-time representation. Don't forget to change the input, which should be the original trace (not filtered), instead of the filtered trace.
+Now, open a space-time representation, and zoom-in on the main phase. 
+
+
+![](http://dosimont.github.com/images/bsc_cepba/paraver_global.png)
+
+Continue to zoom-in until you see some iterations/regular patterns.
+
+![](http://dosimont.github.com/images/bsc_cepba/paraver_iterations.png)
+
+Open the filter/cutter tool again, and this time, select *cutter*. Select a region containing about 10 iterations, using the space-time representation. Don't forget to change the input, which should be the original trace (not filtered), instead of the filtered trace.
 You eventually get a little trace. Repeat the full clustering process again.
 
 ## Influence of clustering parameters
