@@ -10,7 +10,7 @@ image:
 date: 2017-03-07T16:38:00+02:00
 ---
 
-###Instructions to install Alya on a Fedora 25 distribution
+### Instructions to install Alya on a Fedora 25 distribution
 
 Dependencies:
 
