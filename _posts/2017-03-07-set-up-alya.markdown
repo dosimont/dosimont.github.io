@@ -14,10 +14,10 @@ date: 2017-03-07T16:38:00+02:00
 
 Dependencies:
 
- `sudo dnf install make automake gcc gcc-c++ kernel-devel`
- `sudo dnf groupinstall "Development Tools" "Development Libraries"`
- `sudo dnf install gcc-gfortran`
- `sudo dnf openmpi openmpi-devel`
+ `sudo dnf install make automake gcc gcc-c++ kernel-devel`  
+ `sudo dnf groupinstall "Development Tools" "Development Libraries"`  
+ `sudo dnf install gcc-gfortran`  
+ `sudo dnf openmpi openmpi-devel`  
 
 Download the svn repository (requires an access to BSC's network):
 
