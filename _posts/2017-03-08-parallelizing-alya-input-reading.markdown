@@ -12,7 +12,7 @@ date: 2017-03-08
 
 This page summarizes the information and the discussions regarding the parallelization of Alya's input files reading.
 
-### Alya's input mesh file
+# Alya's input mesh file
 
 Input mesh files describing unstructured meshes, of extension `.dat.geo`, are single textual files composed of several sections.
 
@@ -57,20 +57,20 @@ Section `BOUNDARIES`
 _Some remarks: 
 Merging the types and the elements sections would help to optimize and reduce the trace size easily: types could be, for instance, the second index of the elements section._
 
-### Objective
+# Objective
 
 Our objective is basically to reduce the reading time as well as minimizing the memory footprint of this operation. Parallelizing the I/O using a distributed file system and a parallel I/O library could help to do so.
 
-### Constraints
+# Constraints
 
 - Gain performance
-- Minimize memory footprint
-- Avoid dependencies as much as possible
+- Minimize the memory footprint
+- Avoid external dependencies as much as possible
 - Keep the input format for parallel reading identical or close to the original input format
 
-### Technologies
+# Technologies
 
-#### MPI-IO
+## MPI-IO
 
 Advantages:
 - no external API
@@ -79,7 +79,7 @@ Advantages:
 Drawbacks:
 - works much better with binary files
 
-##### Issues:
+### Issues:
 
 Parsing the different sections would require to know their location in the file to be efficient.
 
@@ -100,5 +100,8 @@ Envisaged solutions:
   - In the case of a binary file, force a regular array with a length equal to the longest row
   - In the case of a textual file, use overlapping
 
-### Analysis of 
+# Analysis of Code-Saturn
+
+Ricard is in contact with someone working on Code-Saturn, an open source software solving Navier-Stokes equations for several flows, available [here](http://code-saturne.org/cms/).
+They developed a home-made solution for parallel I-O. After a brief analysis of their code, it appears that only the writing is parallelized. I should ask for a confirmation anyway.
 
