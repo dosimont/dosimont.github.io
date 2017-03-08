@@ -68,39 +68,40 @@ Our objective is basically to reduce the reading time as well as minimizing the 
 - Avoid external dependencies as much as possible
 - Keep the input format for parallel reading identical or close to the original input format
 
-# Technologies
-
-## MPI-IO
+# Parallelizing with MPI-IO
 
 Advantages:
+- efficient
 - no external API
-- stable 
+- stable
+- reading and writing are very similar to MPI send and receive
 
 Drawbacks:
-- works much better with binary files
+- is not really compliant with textual files and works much better with binary files
+  - does not read ASCII and is thus unable to detect line breaks
+- parsing files containing several sections or having an irregular structure may be troublesome
 
 ### Issues:
 
-Parsing the different sections would require to know their location in the file to be efficient.
-
+Parsing the different sections would require to know their location in the file to be efficient.  
 Envisaged solutions:
 - Split the input file: one file per section
   - Easiest solution
-  - Easy to pass from the single file to the split files with a simple perl script
+  - Easy to pass from the single file to the split files with a simple perl script (however, this solution does not suit to huge files because of the computation time/memory overload)
   - Requires to modify the workflow to generate such input files and read them
   - Retrocompatibility is not assured
 - Use metadata to indicate where is positionned the beginning of each section
   - This position can not use the line number, but the file offset, which makes the things a bit tricky
   - Modifying the input file (even a single modification) will prevent it to be readen correctly
   - It is a really bad practice to mix textual data and information about the file binary content
-  - This solution would be acceptable if we used a binary file
+- Use an indexation mechanism (to be developed)
 
-Since each line in the `ELEMENTS` section may be of a different length, manage the irregular lines can be tricky, in particular when we partition the file to be processed by several processes.
+Since each line in the `ELEMENTS` section may be of a different length, manage the irregular lines can be tricky, in particular when we partition the file to feed the processes.  
 Envisaged solutions:
   - In the case of a binary file, force a regular array with a length equal to the longest row
-  - In the case of a textual file, use overlapping
+  - In the case of a textual file, use overlapping. The technique has been described [here](http://stackoverflow.com/questions/13327127/mpi-io-reading-file-by-processes-equally-by-line-not-by-chunk-size) and [here](http://stackoverflow.com/questions/12939279/mpi-reading-from-a-text-file) for cases that are very similar to ours.
 
-# Analysis of Code-Saturn
+### Analysis of Code-Saturn
 
 Ricard is in contact with someone working on Code-Saturn, an open source software solving Navier-Stokes equations for several flows, available [here](http://code-saturne.org/cms/).
 They developed a home-made solution for parallel I-O. After a brief analysis of their code, it appears that only the writing is parallelized. I should ask for a confirmation anyway.
