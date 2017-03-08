@@ -19,40 +19,40 @@ Input mesh files describing unstructured meshes, of extension `.dat.geo`, are si
 Section `TYPES` assignes a type (a geometrical figure, e.g. a triangle, a rectangle,...) to each geometrical element.
 The first column is the mesh identifier and the second one the type identifier ; both are unsigned integers. The value of those types is defined in Alya.
 
-`TYPES  
-1 37  
-2 37  
-3 34  
-...  
-END_TYPES`
+    TYPES  
+    1 37  
+    2 37  
+    3 34  
+    ...  
+    END_TYPES
 
 
 Section `COORDINATES` defines the coordinate of each node that will be use to describe the geometrical figures. A same node can be shared by several elements.
 
-`COORDINATES  
-1   0.0000000000000e+00  0.0000000000000e+00  0.0000000000000e+00  
-2  -1.1838919219742e-03  1.9714187252377e+00  0.0000000000000e+00  
-3   2.0000000000000e+00  0.0000000000000e+00  0.0000000000000e+00  
-...
-END_COORDINATES`
+    COORDINATES  
+    1   0.0000000000000e+00  0.0000000000000e+00  0.0000000000000e+00  
+    2  -1.1838919219742e-03  1.9714187252377e+00  0.0000000000000e+00  
+    3   2.0000000000000e+00  0.0000000000000e+00  0.0000000000000e+00  
+    ...
+    END_COORDINATES
 
 Section `ELEMENTS` defines the elements, or meshes, themselves. The first index is the element identifier, and the following unsigned integer numbers corresponds to the nodes that are located on the apexes or sides of the elements. Their order matters. It is noticeable that the node number is not regular and may differ at each line.
 
-`ELEMENTS  
-1 9 1 10 11 2372 2410 1384 1385  
-2 10 12 13 11 1384 1386 1387 1385  
-3 11 14 15 9 1385 1388 1002 2372  
-...  
-END_ELEMENTS`
+    ELEMENTS  
+    1 9 1 10 11 2372 2410 1384 1385  
+    2 10 12 13 11 1384 1386 1387 1385  
+    3 11 14 15 9 1385 1388 1002 2372  
+    ...  
+    END_ELEMENTS
 
 Section `BOUNDARIES`
 
-`BOUNDARIES  
-1 9 1 10 11  
-2 10 12 13 11  
-3 11 14 15 9  
-...  
-END_BOUNDARIES`
+    BOUNDARIES  
+    1 9 1 10 11  
+    2 10 12 13 11  
+    3 11 14 15 9  
+    ...  
+    END_BOUNDARIES
 
 _Some remarks: 
 Merging the types and the elements sections would help to optimize and reduce the trace size easily: types could be, for instance, the second index of the elements section._
@@ -100,5 +100,5 @@ Envisaged solutions:
   - In the case of a binary file, force a regular array with a length equal to the longest row
   - In the case of a textual file, use overlapping
 
-
+### Analysis of 
 
