@@ -55,7 +55,7 @@ Section `BOUNDARIES`
     END_BOUNDARIES
 
 _Some remarks: 
-Merging the types and the elements sections would help to optimize and reduce the trace size easily: types could be, for instance, the second index of the elements section._
+Merging the types and the elements sections would help to optimize the parsing and reduce the trace size: types could be, for instance, the second index of the elements section._
 
 # Objective
 
