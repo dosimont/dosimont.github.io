@@ -34,8 +34,8 @@
   </div>
   <article class="page">
     <h1>{{ page.subtitle }}</h1>
-    <div class="article-wrap">
       {{ content }}
+    <div class="article-wrap">
   <div id="index">
       <h1><a href="{{ site.url}}/posts/">News</a></h1>
     {% for post in site.posts limit:5 %}    
@@ -48,7 +48,7 @@
     {% endfor %}
   </div><!-- /#index -->
     </article>
-  </div>
+</div><!-- /article-wrap -->
 </div><!-- /#main -->
   <div class="footer-wrap">
   <footer>
