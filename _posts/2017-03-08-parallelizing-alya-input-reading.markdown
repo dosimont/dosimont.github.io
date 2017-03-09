@@ -57,16 +57,19 @@ Section `BOUNDARIES`
 _Remark: 
 merging the types and the elements sections would help to optimize the parsing and reduce the trace size: types could be, for instance, the second index of the elements section._
 
+_Edit:  
+by looking at Alya's code, it appears that addtional sections can appear in the input file_
+
 # Objective
 
 Our objective is basically to reduce the reading time as well as minimizing the memory footprint of this operation. Parallelizing the I/O using a distributed file system and a parallel I/O library could help to do so.
 
 # Constraints
 
-- Gain performance
-- Minimize the memory footprint
-- Avoid external dependencies as much as possible
-- Keep the input format for parallel reading identical or close to the original input format
+1. Gain performance
+2. Minimize the memory footprint
+3. Avoid external dependencies as much as possible
+4. Keep the input format for parallel reading identical or close to the original input format
 
 # Parallelizing with MPI-IO
 
@@ -81,28 +84,59 @@ Drawbacks:
   - does not read ASCII and is thus unable to detect line breaks
 - parsing files containing several sections or having an irregular structure may be troublesome
 
-### Issues:
+### Issues
 
+Basically, to improve performance and be compliant with MPI-IO, it is mandatory to specify a convenient trace format whose structure and content suits to its parallel reading.
+This is not the case of the current format.
+
+#### Textual input
+
+MPI-IO does not read ASCII, so reading a textual file would add some processing.
 Parsing the different sections would require to know their location in the file to be efficient.  
-Envisaged solutions:
-- Split the input file: one file per section
-  - Easiest solution
+The easiest solution is split the input file: one file per section.
   - Easy to pass from the single file to the split files with a simple perl script (however, this solution does not suit to huge files because of the computation time/memory overload)
   - Requires to modify the workflow to generate such input files and read them
-  - Retrocompatibility is not assured
-- Use metadata to indicate where is positionned the beginning of each section
-  - This position can not use the line number, but the file offset, which makes the things a bit tricky
-  - Modifying the input file (even a single modification) will prevent it to be readen correctly
-  - It is a really bad practice to mix textual data and information about the file binary content
-- Use an indexation mechanism (to be developed)
-
+  - Retrocompatibility is not ensured
 Since each line in the `ELEMENTS` section may be of a different length, manage the irregular lines can be tricky, in particular when we partition the file to feed the processes.  
-Envisaged solutions:
-  - In the case of a binary file, force a regular array with a length equal to the longest row
-  - In the case of a textual file, use overlapping. The technique has been described [here](http://stackoverflow.com/questions/13327127/mpi-io-reading-file-by-processes-equally-by-line-not-by-chunk-size) and [here](http://stackoverflow.com/questions/12939279/mpi-reading-from-a-text-file) for cases that are very similar to ours.
+A potential solution is overlapping. The technique has been described [here](http://stackoverflow.com/questions/13327127/mpi-io-reading-file-by-processes-equally-by-line-not-by-chunk-size) and [here](http://stackoverflow.com/questions/12939279/mpi-reading-from-a-text-file) for cases that are very similar to ours.
 
-### Analysis of Code-Saturn
+#### Binary input
+
+Using a binary file would be much more compliant with MPI-IO. Also, reading a binary file is faster, even in sequential. However, the file is not human-readable anymore. Other issues may be related to endianness.
+See [here]{https://www.sharcnet.ca/help/index.php/Parallel_I/O_introductory_tutorial#Data_Formats} for more info.
+
+Of course, switching to a binary format with new specifications does not fulfill the constraint 4.
+
+Some guidelines that could help to specify this format in order to ensure its compliancy with MPI-IO
+
+- Header expressing the file structure:
+  - the item number of each section
+  - sections must be ordered and well defined
+- Body:
+  - each item should be aligned
+  - It would be convenient to use the same format whatever the section to help the displacement computation
+    - This could be done by using two dimension arrays and replicating the elements when it's required
+
+_In binary_
+
+    ELEMENTS  
+    1 9 
+    1 1 
+    1 10 
+    1 11 
+    ...
+    2 10
+    ...
+    END_ELEMENTS
+
+This [page](https://en.wikipedia.org/wiki/STL_(file_format)) offers a good example of a binary format through the STL format specification.
+
+# Analysis of Code-Saturn
 
 Ricard is in contact with someone working on Code-Saturn, an open source software solving Navier-Stokes equations for several flows, available [here](http://code-saturne.org/cms/).
-They developed a home-made solution for parallel I-O. After a brief analysis of their code, it appears that only the writing is parallelized. I should ask for a confirmation anyway.
+They developed a home-made solution for parallel I-O. Let's take a look on this to get some inspiration.
+
+## Input files
+
+The input files provided in the example directory of Code-Saturn are binaries.
 
