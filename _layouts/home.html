@@ -35,7 +35,6 @@
   <article class="page">
     <h1>{{ page.subtitle }}</h1>
       {{ content }}
-    <div class="article-wrap">
   <div id="index">
       <h1><a href="{{ site.url}}/posts/">News</a></h1>
     {% for post in site.posts limit:5 %}    
@@ -47,7 +46,6 @@
       {% endif %}
     {% endfor %}
   </div><!-- /#index -->
-</div><!-- /article-wrap -->
 </article>
 </div><!-- /#main -->
   <div class="footer-wrap">
