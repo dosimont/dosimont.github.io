@@ -57,8 +57,7 @@ Section `BOUNDARIES`
 _Remark: 
 merging the types and the elements sections would help to optimize the parsing and reduce the trace size: types could be, for instance, the second index of the elements section._
 
-_Edit:  
-by looking at Alya's code, it appears that addtional sections can appear in the input file_
+_Edit: by looking at Alya's code, it appears that addtional sections can appear in the input file_
 
 # Objective
 
@@ -96,24 +95,25 @@ Parsing the different sections would require to know their location in the file 
 The easiest solution is split the input file: one file per section.
   - Easy to pass from the single file to the split files with a simple perl script (however, this solution does not suit to huge files because of the computation time/memory overload)
   - Requires to modify the workflow to generate such input files and read them
-  - Retrocompatibility is not ensured
+  - Retrocompatibility is not ensured  
+
 Since each line in the `ELEMENTS` section may be of a different length, manage the irregular lines can be tricky, in particular when we partition the file to feed the processes.  
 A potential solution is overlapping. The technique has been described [here](http://stackoverflow.com/questions/13327127/mpi-io-reading-file-by-processes-equally-by-line-not-by-chunk-size) and [here](http://stackoverflow.com/questions/12939279/mpi-reading-from-a-text-file) for cases that are very similar to ours.
 
 #### Binary input
 
 Using a binary file would be much more compliant with MPI-IO. Also, reading a binary file is faster, even in sequential. However, the file is not human-readable anymore. Other issues may be related to endianness.
-See [here]{https://www.sharcnet.ca/help/index.php/Parallel_I/O_introductory_tutorial#Data_Formats} for more info.
+See [here](https://www.sharcnet.ca/help/index.php/Parallel_I/O_introductory_tutorial#Data_Formats) for more info.
 
-Of course, switching to a binary format with new specifications does not fulfill the constraint 4.
+Of course, switching to a binary format with new specifications does not fulfill the constraint **4**.
 
 Some guidelines that could help to specify this format in order to ensure its compliancy with MPI-IO
 
 - Header expressing the file structure:
-  - the item number of each section
+  - the item/line number of each section
   - sections must be ordered and well defined
 - Body:
-  - each item should be aligned
+  - each item must be aligned
   - It would be convenient to use the same format whatever the section to help the displacement computation
     - This could be done by using two dimension arrays and replicating the elements when it's required
 
@@ -138,5 +138,59 @@ They developed a home-made solution for parallel I-O. Let's take a look on this 
 
 ## Input files
 
-The input files provided in the example directory of Code-Saturn are binaries.
+The input files provided in the example directory of Code-Saturn are binaries. I didn't find more information about the format (.des), which seems to be home-made.
 
+## Code
+
+Charles, Ricard's contact, confirmed that both reading and writing can be done in parallel (or serial if MPI-IO is not present on the machine).
+The directories and files we should look for:
+
+    src
+    |
+    |------ base
+            |
+            |------ cs_base.*
+            |------ cs_io.*
+            |------ cs_file.*
+    |        
+    |------ fvm
+            |
+            |------ *
+
+
+### Base directory
+
+#### `cs_base`
+
+This file contains some base functions for manipulating string, files, i/o, etc.
+
+#### `cs_io`
+
+This file is probably the most interesting since it contains functions to read/write headers, sections, blocks.
+Interesting content of `cs_io.h` about the concept of section (does it correspond to _our_ sections, as we have defined above?).
+
+    /*----------------------------------------------------------------------------
+     * Write a global section.
+     *
+     * Under MPI, data is only written by the associated communicator's root
+     * rank. The section data on other ranks is ignored, though the file offset
+     * is updated (i.e. the call to this function is collective).
+     *
+     * parameters:
+     *   section_name     <-- section name
+     *   n_vals           <-- total number of values
+     *   location_id      <-- id of associated location, or 0
+     *   index_id         <-- id of associated index, or 0
+     *   n_location_vals  <-- number of values per location
+     *   elt_type         <-- element type
+     *   elts             <-- pointer to element data
+     *   outp             <-> output kernel IO structure
+     *----------------------------------------------------------------------------*/
+
+#### `cs_file`
+
+This file is responsible, inter alia, of the MPI-IO calls.
+
+### FVM directory
+
+TO BE COMPLETED
