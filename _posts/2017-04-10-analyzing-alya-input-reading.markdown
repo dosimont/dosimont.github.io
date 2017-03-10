@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Parallelizing Alya's Input Reading"
+title: "Analyzing Alya's Input Reading"
 modified: 2017-03-10
 categories: 
 excerpt:
@@ -9,8 +9,6 @@ image:
   feature:
 date: 2017-03-10
 ---
-
-# Analysis of Alya input reading
 
 We focus on the code from the start to the input reading.
 The corresponding files are located in the following location:
