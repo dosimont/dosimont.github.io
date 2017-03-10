@@ -219,7 +219,7 @@ Now starts the reading. First, with some options that are not present in the exa
 
 The `ecoute` routine is responsible for reading a line of the input file.
 _Something I don't get is the purpose of 'REAGEO' string taken as argument. It is not referenced/tested in `ecoute`.
-I guess `ecoute` reads a line of the input mesh file, but I don't know where it finds the variable specifying the file to read, neither if it's a common variable or something like that._
+The file that is actually readen by ecoute is actually `nunit`._
 
 Interesting point: this part determines if the file is binary, which means that a binary version of the mesh file already exists.
 I should look for its specifications: it could be used as a starting point for defining a parallel compliant format.
@@ -423,8 +423,8 @@ Reads another line.
           end do
        else
 
-Basically, do the same process, but reusing the information get during the nodes section.
-It does not need the `ecoute` routine and use a simple `read` to fill the `lnods` table.
+Basically, does the same process, but reusing the information got in the nodes section parsing.
+It does not need the `ecoute` routine and use a simple `read` to fill the `lnods` table, which is much more efficient.
 
           do ielem = 1,nelem
              ielty = ltype(ielem)
@@ -434,16 +434,18 @@ It does not need the `ecoute` routine and use a simple `read` to fill the `lnods
        end if
        if( words(1) /= 'ENDEL' )&
             call runend('REAGEO: WRONG ELEMENT FIELD')
-       call mescek(3_ip)
 
+Calls the mesh checking.
+       call mescek(3_ip)
 
 
 ### `reatyp.f90`
 
+We details here the `reatyp` function which parses the types.
+
 TODO: first part of the code.
 
-
-This function is very inefficient and must be corrected, since it evaluates all the conditions event if the test is true in the previous one!
+This function `ltnew` converts old types to new types. It is very inefficient and must be corrected, since it evaluates all the conditions event if the test is true in the previous one!
 
     function ltnew(ityol)
       !-----------------------------------------------------------------------
