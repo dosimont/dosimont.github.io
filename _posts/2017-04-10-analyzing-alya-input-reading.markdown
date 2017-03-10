@@ -222,7 +222,7 @@ _Something I don't get is the purpose of 'REAGEO' string taken as argument. It i
 I guess `ecoute` reads a line of the input mesh file, but I don't know where it finds the variable specifying the file to read, neither if it's a common variable or something like that._
 
 Interesting point: this part determines if the file is binary, which means that a binary version of the mesh file already exists.
-I should look for its specifications: it could be use as a starting point for defining a parallel compliant format.
+I should look for its specifications: it could be used as a starting point for defining a parallel compliant format.
 
     !
     ! Binary file: read/write
@@ -247,7 +247,7 @@ Main loop reading the whole file:
     do while(words(1)/='ENDGE')
       call ecoute('reageo')
 
-Test to determine if the file is a binary, in this case call the routine `geobin`.
+Test to determine if the file is a binary, in this case calls the routine `geobin`.
 
     if( words(1) == 'BINAR' ) then
       !
@@ -257,21 +257,42 @@ Test to determine if the file is a binary, in this case call the routine `geobin
 
 Part parsing the `NODES` section. We'll describe more in details than the previous code section.
 
-Determining if the line parsed contains `NODES`.
+Determining if the line parsed contains `NODES`. Note the `words` variable, defined in `def_inpout.f90`, which contains the line content.
 
     else if( words(1) == 'NODES' ) then
       !
       ! LTYPE: Element types
       !
+
+_I don't understand the purpose of `ktype`._
+`nelem` is defined in `def_domain.f90` and is the **number of elements**.
+
       ktype=nelem
-      call livinf(27_ip,' ',0_ip)
-      do ielem=1,nelem
-         read(nunit,*,err=1) dummi,knode
-         call fintyp(ndime,knode,ielty)
-         lexis(ielty)=1
-         ltype(ielem)=ielty
-      end do
-      call ecoute('reageo')
-      if(words(1)/='ENDNO')&
-           call runend('REAGEO: ERROR READING NODES PER ELEMENT, POSSIBLY MISMATCH IN NUMBER OF NODES IN DOM.DAT')
-      call mescek(2_ip)
+
+Printing some informations.
+
+    call livinf(27_ip,' ',0_ip)
+
+Iteration over the number of elements
+
+    do ielem=1,nelem
+
+`dummi`'s and `knode` role are commented nowhere.
+`nunit` is one of the listen files defined in `def_inpout.f90`
+I imagine that, if we take into account the mesh file structure, dummi is the node number and ktype the type.
+Since we already know the number of nodes, dummi is not readen after having being retrieved (doing the assumption the node are ordered).
+
+       read(nunit,*,err=1) dummi,knode
+
+From the knode identifier, which is a numerical value, we retrieve it's real type through fintyp.
+
+       call fintyp(ndime,knode,ielty)
+       lexis(ielty)=1
+       ltype(ielem)=ielty
+    end do
+    call ecoute('reageo')
+    if(words(1)/='ENDNO')&
+         call runend('REAGEO: ERROR READING NODES PER ELEMENT, POSSIBLY MISMATCH IN NUMBER OF NODES IN DOM.DAT')
+    call mescek(2_ip)
+
+
