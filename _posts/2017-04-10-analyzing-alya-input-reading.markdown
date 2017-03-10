@@ -424,7 +424,7 @@ Reads another line.
        else
 
 Basically, do the same process, but reusing the information get during the nodes section.
-It does not need the `ecoute` routine and use a simple `read` to fill the lnods table.
+It does not need the `ecoute` routine and use a simple `read` to fill the `lnods` table.
 
           do ielem = 1,nelem
              ielty = ltype(ielem)
