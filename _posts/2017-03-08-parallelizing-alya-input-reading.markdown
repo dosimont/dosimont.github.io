@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "Parallelizing Alya's Input Reading"
-modified:
+modified: 2017-03-10
 categories: 
 excerpt:
-tags: []
+tags: [Alya]
 image:
   feature:
 date: 2017-03-08
@@ -194,3 +194,86 @@ This file is responsible, inter alia, of the MPI-IO calls.
 ### FVM directory
 
 TO BE COMPLETED
+
+# Analysis of Alya
+
+For the moment, we focus on the code from the start to the input reading.
+The corresponding files are located in the following location:
+
+    Sources
+    |
+    |------ kernel
+            |
+            |------ master
+                    |
+                    |------*.f90
+
+
+### Alya.f90
+
+This is the main file, containing the Alya program.
+After some conditional initializations (Extrae, Alya DLB), call the subroutine `Turnon`.
+
+### Turnon.f90
+
+Defines the subroutine `Turnon`. Contains the following dependencies (**important**: it seems that many global variables are used, with multiple side effects! This must be taken into account during the parallelization):
+
+    use def_parame
+    use def_elmtyp
+    use def_master
+    use def_inpout
+    use def_domain
+    use def_kermod
+    use mod_finite_volume,        only : finite_volume_arrays
+
+Definitions are located here:
+
+
+    Sources
+    |
+    |------ kernel
+            |
+            |------ defmode
+                    |
+                    |------*.f90
+
+After initializing, set up mpi communicators:
+
+    ! Splits the MPI_COMM_WORLD for coupling with other codes. This defines the Alya world
+    !
+    call par_code_split_universe()
+    !
+    ! Splits the MPI_COMM_WORLD for coupling
+    !
+    call par_code_split_world()
+
+And read the problem data:
+
+    ! Read problem data
+    !
+    call reapro()
+
+### Reapro.f90
+
+Defines the subroutine `reapro`. The interest point is `readat`.
+
+  ! Initializations
+  !
+  call inirun()
+  !
+
+  ...
+
+  !
+  ! Get result file names and open them
+  !
+  call livinf(2_ip,' ',zero)
+  call openfi(2_ip)
+  !
+  ! Read general problem data
+  !
+  call readat()
+  !
+  ! Modules: read data
+
+
