@@ -357,7 +357,84 @@ Here comes the types section. This time the parsing in done in a subroutine `rea
            ! ADOC[d]> </ul>
            !
            call reatyp(kfl_icgns,nelem,ktype,ltype,lexis)
+
+`mescek` checks if the routine is correct. We should'nt need to intervene in this one.
            call mescek(2_ip)
+
+Now, the elements section.
+
+    else if( words(1) == 'ELEME' ) then
+       !
+       ! ADOC[1]> ELEMENTS 
+       ! ADOC[1]>   int int int ...                                                             $ Element, node1, node2, node3 ...
+       ! ADOC[1]>   ...
+       ! ADOC[1]> END_ELEMENTS 
+       ! ADOC[d]> ELEMENTS:
+       ! ADOC[d]> This field contains the element connectivity. The first figure is the element number,
+       ! ADOC[d]> followed by the list of it nodes.
+       !
+
+Printing some informations
+
+       call livinf(28_ip,' ',0_ip)
+
+Ok, now I understand the purpose of `ktype`. I imagine a value equal to 0 means the information is not known and requires a _manual_ parsing.
+Since the `ecoute` routine seems very costly (is it not possible to implement several `ecoute`, simpler, and more optimized, by the way?),
+the authors want to minimize its usage as possible.
+
+       if( ktype == 0 ) then
+
+Reading a line
+
+          call ecoute('reageo')
+
+Evaluating the end of the section
+
+          do while( words(1) /= 'ENDEL' )
+
+`ielem` is the first column element of the retrieved row, i.e. the element id
+
+             ielem = int(param(1_ip))
+
+Test to see if we don't exceed the maximum element value.
+
+             if( ielem < 0 .or. ielem > nelem ) &
+                  call runend('REAGEO: WRONG NUMBER OF ELEMENT '&
+                  //adjustl(trim(intost(ielem))))
+
+I guess `knode` is the number of node associated with the element. `nnpar` is another variable modified by `ecoute` through a side-effect.
+
+             knode = nnpar-1
+
+Find the type as a function of knode and the dimension number and associate it with the element in the `ltype` table. See that this process is the same than the one done in the nodes section.
+
+             call fintyp(ndime,knode,ielty)
+             ltype(ielem) = ielty
+
+Iterate over the nodes. The table lnods associates each node index, element couple with the corresponding node identifier.
+
+             do inode = 1,nnode(ielty)
+                lnods(inode,ielem) = int(param(inode+1))
+             end do
+
+Reads another line.
+
+             call ecoute('reageo')
+          end do
+       else
+
+Basically, do the same process, but reusing the information get during the nodes section.
+It does not need the `ecoute` routine and use a simple `read` to fill the lnods table.
+
+          do ielem = 1,nelem
+             ielty = ltype(ielem)
+             read(nunit,*,err=2) dummi,(lnods(inode,ielem),inode=1,nnode(ielty))
+          end do
+          call ecoute('reageo')
+       end if
+       if( words(1) /= 'ENDEL' )&
+            call runend('REAGEO: WRONG ELEMENT FIELD')
+       call mescek(3_ip)
 
 
 
