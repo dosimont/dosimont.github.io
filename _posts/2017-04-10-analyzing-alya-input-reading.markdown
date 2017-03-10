@@ -140,19 +140,83 @@ Here are the dependencies (should be taken seriously because of the multiple **s
 
 Those are the variables:
 
-  implicit none
-  integer(ip)           :: ielem,ipoin,jpoin,inode,idime,iimbo
-  integer(ip)           :: iboun,inodb,ielty,ktype,dummi,kfl_defau
-  integer(ip)           :: iskew,jskew,jdime,imate,kelem,nlimi
-  integer(ip)           :: iblty,knode,kfl_gidsk,kfl_dontr,kpoin
-  integer(ip)           :: kfl_binme,ipara,iperi,imast,kfl_icgns
-  integer(ip)           :: pelty,ifiel,izone,kfl_ifmat,kfl_elino
-  integer(ip)           :: isubd,jstep,jperi
-  real(rp)              :: dummr
-  character(20)         :: chnod
-  integer(ip),  pointer :: lelno(:)
+    implicit none
+    integer(ip)           :: ielem,ipoin,jpoin,inode,idime,iimbo
+    integer(ip)           :: iboun,inodb,ielty,ktype,dummi,kfl_defau
+    integer(ip)           :: iskew,jskew,jdime,imate,kelem,nlimi
+    integer(ip)           :: iblty,knode,kfl_gidsk,kfl_dontr,kpoin
+    integer(ip)           :: kfl_binme,ipara,iperi,imast,kfl_icgns
+    integer(ip)           :: pelty,ifiel,izone,kfl_ifmat,kfl_elino
+    integer(ip)           :: isubd,jstep,jperi
+    real(rp)              :: dummr
+    character(20)         :: chnod
+    integer(ip),  pointer :: lelno(:)
 
-  nullify(lelno)
+    nullify(lelno)
 
-They are not commented and the meaning of some of them is a bit obscure.
+They are not commented and the meaning of some of them is a bit obscure. 
+
+This instruction ensures a sequential reading, only done by the master:
+
+    if( ISEQUEN .or. ( IMASTER .and. kfl_ptask /= 2 ) ) then
+
+Some other variables, commented this time:
+
+    !
+    ! Initializations
+    !
+    kfl_chege  = 0                   ! Don't check geometry
+    kfl_naxis  = 0                   ! Cartesian coordinate system
+    kfl_spher  = 0                   ! Cartesian coordinate system
+    kfl_bouel  = 0                   ! Element # connected to boundary unknown
+    nmate      = 1                   ! No material
+    nmatf      = 1                   ! Fluid material
+    ngrou_dom  = 0                   ! Groups (for deflated): -2 (slaves), -1 (automatic, master), >0 (master)
+    kfl_gidsk  = 0                   ! General skew system
+    kfl_dontr  = 0                   ! Read boundaries
+    kfl_binme  = 0                   ! =1: Mesh must be read in binary format
+    nfiel      = 0                   ! Number of fields
+    curvatureDataField = 0           ! curvature data field id
+    curvatureField = 0               ! curvature data field id
+    kfl_elcoh  = 0                   ! Assume cohesive elements
+    kfl_elint  = 0                   ! Assume interface elements
+    !
+    ! Local variables
+    !
+    kfl_icgns  = 0                   ! New Alya format for types of elements
+    kfl_ifmat  = 0                   ! Materials were not assigned
+    ktype      = 0                   ! Element # of nodes is not calculated
+    imast      = 0                   ! Master has not been read
+    izone      = 0                   ! Zones have not been allocated
+    kfl_elino  = 0                   ! Eliminate lost nodes
+
+Now comes the memory allocation, done by `memgeo`. Depending of the value passed in parameter, memgeo allocates a certain amount of memory for a particular topic.
+This time again, careful about the side effects and the reading of variables that are not passed in parameter. This routine will have to be reworked to ensure the parallelism.
+
+    !
+    ! Memory allocation
+    !
+    call memgeo( 1_ip)               ! Mesh arrays
+    call memgeo(49_ip)               ! Zones 
+    call memgeo(53_ip)               ! Periodicity
+
+Now starts the reading. First, with some options that are not present in the example file which has been given to me.
+
+    !
+    ! Read options and arrays
+    ! 
+    call ecoute('REAGEO')
+    do while( words(1) /= 'GEOME' )
+      call ecoute('REAGEO')
+    end do
+    if( exists('AXISY') ) kfl_naxis = 1
+    if( exists('SPHER') ) kfl_spher = 1
+    if( exists('CHECK') ) kfl_chege = 1
+    if( exists('GID  ') ) kfl_gidsk = 1
+
+    if( exists('ELIMI') ) kfl_elino = 1
+
+The `ecoute` routine is responsible of reading a line of the input file.
+_Something I don't get is the purpose of 'REAGEO' string taken as argument. It is not referenced/tested in `ecoute`._
+
 
