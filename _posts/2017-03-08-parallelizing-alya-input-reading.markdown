@@ -257,23 +257,23 @@ And read the problem data:
 
 Defines the subroutine `reapro`. The interest point is `readat`.
 
-  ! Initializations
-  !
-  call inirun()
-  !
+    ! Initializations
+    !
+    call inirun()
+    !
 
-  ...
+    ...
 
-  !
-  ! Get result file names and open them
-  !
-  call livinf(2_ip,' ',zero)
-  call openfi(2_ip)
-  !
-  ! Read general problem data
-  !
-  call readat()
-  !
-  ! Modules: read data
+    !
+    ! Get result file names and open them
+    !
+    call livinf(2_ip,' ',zero)
+    call openfi(2_ip)
+    !
+    ! Read general problem data
+    !
+    call readat()
+    !
+    ! Modules: read data
 
 
