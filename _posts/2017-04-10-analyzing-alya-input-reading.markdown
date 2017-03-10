@@ -258,6 +258,9 @@ Test to determine if the file is a binary, in this case calls the routine `geobi
 Part parsing the `NODES` section. We'll describe more in details than the previous code section.
 
 Determining if the line parsed contains `NODES`. Note the `words` variable, defined in `def_inpout.f90`, which contains the line content.
+_The nodes section is not present in the example file, and the following code description seems to match with the type section as well.
+Need to ask for more information..._
+
 
     else if( words(1) == 'NODES' ) then
       !
@@ -280,19 +283,117 @@ Iteration over the number of elements
 `dummi`'s and `knode` role are commented nowhere.
 `nunit` is one of the listen files defined in `def_inpout.f90`
 I imagine that, if we take into account the mesh file structure, dummi is the node number and ktype the type.
-Since we already know the number of nodes, dummi is not readen after having being retrieved (doing the assumption the node are ordered).
+Since we already know the number of nodes, `dummi` is not readen after having being retrieved (doing the assumption the node are ordered).
 
        read(nunit,*,err=1) dummi,knode
 
-From the knode identifier, which is a numerical value, we retrieve it's real type through fintyp.
+From the knode identifier, which is a numerical value, we retrieve its real type through `fintyp`, that we store in `ielty`.
 
        call fintyp(ndime,knode,ielty)
+
+`lexis` informs whether the type _exists_ (is in the file, I guess) or not
+
        lexis(ielty)=1
+
+Assigns the type to the corresponding element.
+
        ltype(ielem)=ielty
     end do
+
+Testing the section ends correctly.
+
     call ecoute('reageo')
     if(words(1)/='ENDNO')&
          call runend('REAGEO: ERROR READING NODES PER ELEMENT, POSSIBLY MISMATCH IN NUMBER OF NODES IN DOM.DAT')
     call mescek(2_ip)
 
+Here comes the types section. This time the parsing in done in a subroutine `reatyp`.
 
+        else if( words(1) == 'TYPES' ) then 
+           !
+           ! ADOC[1]> TYPES_OF_ELEMENTS [, ALL= char]
+           ! ADOC[1]>   int int                                                                     $ Element, type number
+           ! ADOC[1]>   ...
+           ! ADOC[1]> END_TYPES_OF_ELEMENTS
+           ! ADOC[d]> TYPES_OF_ELEMENTS:
+           ! ADOC[d]> This field contains the element types. At each line, the first figure is the element number and the second
+           ! ADOC[d]> one the element type. If all the elements are the same (say TET04, the following option can be added to the header: 
+           ! ADOC[d]> TYPES OF ELEMENTS, ALL=TET04 and then the list should be empty.
+           ! ADOC[d]> The correspondance between element type and element number is the following:
+           ! ADOC[d]> <ul>
+           ! ADOC[d]> <li> 1D elements: </li>
+           ! ADOC[d]> <ul>
+           ! ADOC[d]> <li> BAR02 =    2 </li> 
+           ! ADOC[d]> <li> BAR03 =    3 </li> 
+           ! ADOC[d]> <li> BAR04 =    4 </li> 
+           ! ADOC[d]> </ul>
+           ! ADOC[d]> <li> 2D elements: </li>
+           ! ADOC[d]> <ul>
+           ! ADOC[d]> <li> TRI03 =   10 </li> 
+           ! ADOC[d]> <li> TRI06 =   11 </li> 
+           ! ADOC[d]> <li> QUA04 =   12 </li> 
+           ! ADOC[d]> <li> QUA08 =   13 </li> 
+           ! ADOC[d]> <li> QUA09 =   14 </li> 
+           ! ADOC[d]> <li> QUA16 =   15 </li> 
+           ! ADOC[d]> </ul>
+           ! ADOC[d]> <li> 3D elements: </li>
+           ! ADOC[d]> <ul>
+           ! ADOC[d]> <li> TET04 =   30 </li> 
+           ! ADOC[d]> <li> TET10 =   31 </li> 
+           ! ADOC[d]> <li> PYR05 =   32 </li> 
+           ! ADOC[d]> <li> PYR14 =   33 </li> 
+           ! ADOC[d]> <li> PEN06 =   34 </li> 
+           ! ADOC[d]> <li> PEN15 =   35 </li> 
+           ! ADOC[d]> <li> PEN18 =   36 </li> 
+           ! ADOC[d]> <li> HEX08 =   37 </li> 
+           ! ADOC[d]> <li> HEX20 =   38 </li> 
+           ! ADOC[d]> <li> HEX27 =   39 </li> 
+           ! ADOC[d]> <li> HEX64 =   40 </li> 
+           ! ADOC[d]> </ul>
+           ! ADOC[d]> <li> 3D 2D-elements: </li>
+           ! ADOC[d]> <ul>
+           ! ADOC[d]> <li> SHELL =   50 </li> 
+           ! ADOC[d]> </ul>
+           ! ADOC[d]> </ul>
+           !
+           call reatyp(kfl_icgns,nelem,ktype,ltype,lexis)
+           call mescek(2_ip)
+
+
+
+### `reatyp.f90`
+
+TODO: first part of the code.
+
+
+This function is very inefficient and must be corrected, since it evaluates all the conditions event if the test is true in the previous one!
+
+    function ltnew(ityol)
+      !-----------------------------------------------------------------------
+      !
+      ! Converts old type to new type
+      !
+      !-----------------------------------------------------------------------
+      use def_kintyp
+      integer(ip) :: ltnew,ityol
+
+      if (ityol ==  2) ltnew= 2
+      if (ityol ==  3) ltnew= 3
+      if (ityol ==  4) ltnew= 4
+      if (ityol ==  5) ltnew= 10
+      if (ityol ==  6) ltnew= 11
+      if (ityol ==  7) ltnew= 12
+      if (ityol ==  8) ltnew= 13
+      if (ityol ==  9) ltnew= 14
+      if (ityol == 10) ltnew= 30
+      if (ityol == 11) ltnew= 31
+      if (ityol == 12) ltnew= 32
+      if (ityol == 13) ltnew= 33
+      if (ityol == 14) ltnew= 34
+      if (ityol == 15) ltnew= 35
+      if (ityol == 16) ltnew= 36
+      if (ityol == 17) ltnew= 37
+      if (ityol == 18) ltnew= 38
+      if (ityol == 19) ltnew= 39
+
+    end function ltnew
