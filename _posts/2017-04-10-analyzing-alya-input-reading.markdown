@@ -29,7 +29,7 @@ After some conditional initializations (Extrae, Alya DLB), call the subroutine `
 
 ### `Turnon.f90`
 
-Defines the subroutine `Turnon`. Contains the following dependencies (**important**: it seems that many global variables are used, with multiple side effects! This must be taken into account during the parallelization):
+Defines the subroutine `Turnon`. Contains the following dependencies (**important**: it seems that many global variables are used, with multiple side effects!):
 
     use def_parame
     use def_elmtyp
@@ -82,7 +82,7 @@ After doing other initializations, read the domain data.
 
 ### `readom.f90`
 
-This is the file responsible of different calls to read the domain data (such as metadata about the mesh files, the meshfiles themselves).
+This is the file doing calls to read the domain data (such as metadata about the mesh files, the meshfiles themselves).
 Here are its location.
 
     Sources
@@ -191,7 +191,8 @@ Some other variables, commented this time:
     kfl_elino  = 0                   ! Eliminate lost nodes
 
 Now comes the memory allocation, done by `memgeo`. Depending of the value passed in parameter, memgeo allocates a certain amount of memory for a particular topic.
-This time again, careful about the side effects and the reading of variables that are not passed in parameter. This routine will have to be reworked to ensure the parallelism.
+This time again, careful about the side effects and the reading of variables that are not passed in parameter. 
+This routine will have to be reworked to ensure the parallelism.
 
     !
     ! Memory allocation
@@ -216,7 +217,61 @@ Now starts the reading. First, with some options that are not present in the exa
 
     if( exists('ELIMI') ) kfl_elino = 1
 
-The `ecoute` routine is responsible of reading a line of the input file.
-_Something I don't get is the purpose of 'REAGEO' string taken as argument. It is not referenced/tested in `ecoute`._
+The `ecoute` routine is responsible for reading a line of the input file.
+_Something I don't get is the purpose of 'REAGEO' string taken as argument. It is not referenced/tested in `ecoute`.
+I guess `ecoute` reads a line of the input mesh file, but I don't know where it finds the variable specifying the file to read, neither if it's a common variable or something like that._
 
+Interesting point: this part determines if the file is binary, which means that a binary version of the mesh file already exists.
+I should look for its specifications: it could be use as a starting point for defining a parallel compliant format.
 
+    !
+    ! Binary file: read/write
+    !
+    if(exists('BINAR').or.exists('READB')) then
+      call geobin(2_ip)
+      do while(words(1)/='ENDGE')
+         call ecoute('reageo')
+      end do
+      return
+    end if
+    if(exists('OUTPU').or.exists('WRITE')) kfl_binar=1
+
+Main loop reading the whole file:
+
+    !
+    ! ADOC[0]> $-----------------------------------------------------------------------
+    ! ADOC[0]> $ Mesh definition
+    ! ADOC[0]> $-----------------------------------------------------------------------
+    ! ADOC[0]> GEOMETRY
+    !
+    do while(words(1)/='ENDGE')
+      call ecoute('reageo')
+
+Test to determine if the file is a binary, in this case call the routine `geobin`.
+
+    if( words(1) == 'BINAR' ) then
+      !
+      ! Read geometry from binary file
+      !
+      call geobin(2_ip)
+
+Part parsing the `NODES` section. We'll describe more in details than the previous code section.
+
+Determining if the line parses contains `NODES`.
+
+    else if( words(1) == 'NODES' ) then
+      !
+      ! LTYPE: Element types
+      !
+      ktype=nelem
+      call livinf(27_ip,' ',0_ip)
+      do ielem=1,nelem
+         read(nunit,*,err=1) dummi,knode
+         call fintyp(ndime,knode,ielty)
+         lexis(ielty)=1
+         ltype(ielem)=ielty
+      end do
+      call ecoute('reageo')
+      if(words(1)/='ENDNO')&
+           call runend('REAGEO: ERROR READING NODES PER ELEMENT, POSSIBLY MISMATCH IN NUMBER OF NODES IN DOM.DAT')
+      call mescek(2_ip)
