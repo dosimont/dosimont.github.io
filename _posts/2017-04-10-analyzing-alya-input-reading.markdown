@@ -257,7 +257,7 @@ Test to determine if the file is a binary, in this case call the routine `geobin
 
 Part parsing the `NODES` section. We'll describe more in details than the previous code section.
 
-Determining if the line parses contains `NODES`.
+Determining if the line parsed contains `NODES`.
 
     else if( words(1) == 'NODES' ) then
       !
