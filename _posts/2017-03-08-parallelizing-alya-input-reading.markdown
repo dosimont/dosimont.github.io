@@ -197,7 +197,7 @@ Since SFC does not care about how the elements are distributed amongst the proce
     Each process contains NItems/N items
     Item[i] € Process i/NItems * N 
     
-If this approach suits well already for the items of type elements, it is not the case for the nodes whose the elements depends from (and probably some other type of data), and that are originally not distributed amongts the processes.
+If this approach suits well already for the items of type elements, it is not the case for the nodes whose the elements depend on (and probably some other type of data), and that are originally not distributed amongts the processes.
 Thus, it is necessary to modify the partition code to take this into account.
 Several solutions:
 
