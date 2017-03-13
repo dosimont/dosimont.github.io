@@ -193,16 +193,16 @@ If this approach suits well already for the items of type elements, it is not th
 Thus, it is necessary to modify the partition code to take this into account.
 Several solutions:
 
-    - **All the node information is mutualized between the processes prior to the partitioning**.
-      - Close to the current code in which the master distributes all the information to the process.
-      - Theoretically and practically simple
-      - This is costly in term of bandwidth and memory consuming.
-    - **Only necessary nodes are shared between the processes**
-      - Requires to modifiy the partition code more deeply
-      - Requires preprocessing
-      - It's easy to determine who owns a node according to its id
-      - Memory saving
-    - **[...]**
+- **All the node information is mutualized between the processes prior to the partitioning**.
+  - Close to the current code in which the master distributes all the information to the process.
+  - Theoretically and practically simple
+  - This is costly in term of bandwidth and memory consuming.
+- **Only necessary nodes are shared between the processes**
+  - Requires to modifiy the partition code more deeply
+  - Requires preprocessing
+  - It's easy to determine who owns a node according to its id
+  - Memory saving
+- **[...]**
 
 
     Parallel Reading (objective) -> Parallel Partitioning (ParMETIS or SFC?)
