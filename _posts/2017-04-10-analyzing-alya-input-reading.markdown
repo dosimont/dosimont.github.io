@@ -423,7 +423,7 @@ Reads another line.
           end do
        else
 
-Basically, does the same process, but reusing the information got in the nodes section parsing.
+Basically, does the same process, but reusing the information retrieved in the nodes section parsing.
 It does not need the `ecoute` routine and use a simple `read` to fill the `lnods` table, which is much more efficient.
 
           do ielem = 1,nelem
@@ -437,6 +437,10 @@ It does not need the `ecoute` routine and use a simple `read` to fill the `lnods
 
 Calls the mesh checking.
        call mescek(3_ip)
+
+
+
+
 
 
 ### `reatyp.f90`

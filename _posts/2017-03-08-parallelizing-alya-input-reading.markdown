@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Parallelizing Alya's Input Reading"
-modified: 2017-03-10
+modified: 2017-03-12
 categories: 
 excerpt:
 tags: [Alya]
@@ -15,6 +15,8 @@ This page summarizes the information and the discussions regarding the paralleli
 # Alya's input mesh file
 
 Input mesh files describing unstructured meshes, of extension `.dat.geo`, are single textual files composed of several sections.
+
+_Edit 2017-03-12: the information presented in this section is not complete, since the file that have been provided to me is not similar to the file format described in the_ [documentation](http://bsccase02.bsc.es/alya/Domain_input_data.html)_ Refer to this documentation rather than what follows._
 
 Section `TYPES` assignes a type (a geometrical figure, e.g. a triangle, a rectangle,...) to each geometrical element.
 The first column is the mesh identifier and the second one the type identifier ; both are unsigned integers. The value of those types is defined in Alya.
@@ -105,7 +107,7 @@ A potential solution is overlapping. The technique has been described [here](htt
 Using a binary file would be much more compliant with MPI-IO. Also, reading a binary file is faster, even in sequential. However, the file is not human-readable anymore. Other issues may be related to endianness.
 See [here](https://www.sharcnet.ca/help/index.php/Parallel_I/O_introductory_tutorial#Data_Formats) for more info.
 
-Of course, switching to a binary format with new specifications does not fulfill the constraint **4**.
+Of course, switching to a binary format with new specifications does not fulfill the constraint **4**. However, after a code analysis of Alya, it appears that the parser is able to read a certain binary format.
 
 Some guidelines that could help to specify this format in order to ensure its compliancy with MPI-IO
 
@@ -129,7 +131,13 @@ _In binary_
     ...
     END_ELEMENTS
 
+or by defining an arbitrary number of elements per row. This information should be present in the header/metadata file.
+
 This [page](https://en.wikipedia.org/wiki/STL_(file_format)) offers a good example of a binary format through the STL format specification.
+
+Another possibility is to use an already-existing description format, such as the [ParaView](http://www.paraview.org/Wiki/ParaView/Data_formats) format. Basically, it seems that such formats are composed of a binary, which contains the data, and a separate xml file containing the metadata. Another exemple following this structure is [VTK](http://www.paraview.org/Wiki/ParaView/Data_formats). Thes question is: are one of these file formats able to represent all the data required by Alya? If yes, the idea would be to follow one of the popular _standard_ format.
+Some [fortran libraries](http://xml-fortran.sourceforge.net/) already exist to parse/generate xml, which could be convenient to deal with the metadata.
+
 
 # Analysis of Code-Saturn
 
