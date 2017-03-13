@@ -167,7 +167,9 @@ For the sequential reading, two possibilities:
 - if MPI-IO is available on the machine, just use one worker (the master) to perform the reading process instead of N workers.
 - if MPI-IO is not available, it's necessary to use a sequential solution not relying on MPI-IO (MPI-IO methods will be inavailable). The best to manage both cases easily is to use a wrapper, which calls a different method according to the presence or not of MPI-IO.
 
+
     Sequential Reading (current) -> Parallel Partitioning (ParMETIS) (??)
+
 
 This time, the partition process is done in parallel. Theoretically, it could be interesting to envisage a parallel readinig, but from what I understood, the gain using ParMETIS is not really huge. Moreover, I'm not sure that a naive block reading (each process reading contiguous blocks of same size) would suit with ParMETIS and it may require to reorganize the data before the partition, which could be costly.
 
