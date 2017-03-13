@@ -138,6 +138,79 @@ This [page](https://en.wikipedia.org/wiki/STL_(file_format)) offers a good examp
 Another possibility is to use an already-existing description format, such as the [ParaView](http://www.paraview.org/Wiki/ParaView/Data_formats) format. Basically, it seems that such formats are composed of a binary, which contains the data, and a separate xml file containing the metadata. Another exemple following this structure is [VTK](http://www.paraview.org/Wiki/ParaView/Data_formats). Thes question is: are one of these file formats able to represent all the data required by Alya? If yes, the idea would be to follow one of the popular _standard_ format.
 Some [fortran libraries](http://xml-fortran.sourceforge.net/) already exist to parse/generate xml, which could be convenient to deal with the metadata.
 
+# Parallel Workflow
+
+We design here the parallel workflow.
+
+## Generating the binary file
+
+First, it's necessary to generate a file format that suits to MPI-IO. Let's show the flow for a binary format with xml metadata.
+Here, it's necessary to design a program (`Binary Converter`) that converts from the original input format to the binary format. Note that this step is repeated once, but can be time costly and limited by the available memory.
+
+    Mesh Designer Program -> file.dom.dat -> Binary Converter -> file.{bin} + file.{xml}
+
+The better solution is to generate directly the binary format from the program used to generate the mesh description.
+
+    Mesh Designer Program -> file.{bin} + file.{xml}
+
+I need to get more insight about the programs that are used to describe the mesh. Maybe, the export could be realized through a plug-in or an external script integrated to the Mesh Designer Program.
+
+## From the reading to the partitioning
+
+This is the current working state of Alya.
+
+    Sequential Reading (current) -> Sequential Partitioning (METIS) (current)
+
+Since the partition part is sequential, we are not interesting in reading in parallel for this partition method because it will add complexity. However, it's important to ensure compatibility with METIS with the new reading implementation, i.e. ensure a sequential reading.
+For the sequential reading, two possibilities:
+
+- if MPI-IO is available on the machine, just use one worker (the master) to perform the reading process instead of N workers.
+- if MPI-IO is not available, it's necessary to use a sequential solution not relying on MPI-IO (MPI-IO methods will be inavailable). The best to manage both cases easily is to use a wrapper, which calls a different method according to the presence or not of MPI-IO.
+
+    Sequential Reading (current) -> Parallel Partitioning (ParMETIS) (??)
+
+This time, the partition process is done in parallel. Theoretically, it could be interesting to envisage a parallel readinig, but from what I understood, the gain using ParMETIS is not really huge. Moreover, I'm not sure that a naive block reading (each process reading contiguous blocks of same size) would suit with ParMETIS and it may require to reorganize the data before the partition, which could be costly.
+
+    Sequential Reading (current) -> Parallel Partitioning (SFC) (not integrated yet)
+
+Since SFC does not care about how the elements are distributed amongst the processes, this is the partition that suits the most to our parallel reading approach relying on dividing each section in blocks and attributing an equal subset to each process, whitout taking into account the data value itself in this attribution.
+
+    Reading ---------------------------------> Parallel Partitioning (SFC)
+      |                                         |
+    Process 1 (Master) ----------------------> Items[1->NItems/N]
+    Process 2                               -> Items[(Nitems+1)/N->2*NItems/N]
+    ...
+    Process N                               -> Items[((N-1)Items+1)/N->NItems] 
+      |
+      |
+      |
+    Each process contains NItems/N items
+    Item[i] € Process i/NItems * N 
+    
+If this approach suits well already for the items of type elements, it is not the case for the nodes whose the elements depends from (and probably some other type of data), and that are originally not distributed amongts the processes.
+Thus, it is necessary to modify the partition code to take this into account.
+Several solutions:
+    - **All the node information is mutualized between the processes prior to the partitioning**.
+      - Close to the current code in which the master distributes all the information to the process.
+      - Theoretically and practically simple
+      - This is costly in term of bandwidth and memory consuming.
+    - **Only necessary nodes are shared between the processes**
+      - Requires to modifiy the partition code more deeply
+      - Requires preprocessing
+      - It's easy to determine who owns a node according to its id
+      - Memory saving
+    - **[...]**
+
+
+
+
+
+
+
+
+
+    Parallel Reading (objective) -> Parallel Partitioning (ParMETIS or SFC?)
+
 
 # Analysis of Code-Saturn
 
@@ -202,3 +275,5 @@ This file is responsible, inter alia, of the MPI-IO calls.
 ### FVM directory
 
 TO BE COMPLETED
+
+
