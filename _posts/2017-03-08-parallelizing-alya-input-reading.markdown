@@ -16,7 +16,7 @@ This page summarizes the information and the discussions regarding the paralleli
 
 Input mesh files describing unstructured meshes, of extension `.dat.geo`, are single textual files composed of several sections.
 
-_Edit 2017-03-12: the information presented in this section is not complete, since the file that have been provided to me is not similar to the file format described in the_ [documentation](http://bsccase02.bsc.es/alya/Domain_input_data.html) _Refer to this documentation rather than what follows._
+_Edit 2017-03-12: the information presented in this section is not complete, since the file that have been provided to me is not similar to the file format described in the_ [documentation](http://bsccase02.bsc.es/alya/Domain_input_data.html) _Refer to this documentation rather than to what follows._
 
 Section `TYPES` assignes a type (a geometrical figure, e.g. a triangle, a rectangle,...) to each geometrical element.
 The first column is the mesh identifier and the second one the type identifier ; both are unsigned integers. The value of those types is defined in Alya.
