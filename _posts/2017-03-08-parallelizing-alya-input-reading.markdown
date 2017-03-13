@@ -157,6 +157,8 @@ I need to get more insight about the programs that are used to describe the mesh
 
 ## From the reading to the partitioning
 
+### Partition with METIS
+
 This is the current working state of Alya.
 
     Sequential Reading (current) -> Sequential Partitioning (METIS) (current)
@@ -167,14 +169,19 @@ For the sequential reading, two possibilities:
 - if MPI-IO is available on the machine, just use one worker (the master) to perform the reading process instead of N workers.
 - if MPI-IO is not available, it's necessary to use a sequential solution not relying on MPI-IO (MPI-IO methods will be inavailable). The best to manage both cases easily is to use a wrapper, which calls a different method according to the presence or not of MPI-IO.
 
-  
+
+### Partition with ParMETIS  
 
     Sequential Reading (current) -> Parallel Partitioning (ParMETIS) (??)
 
 
 This time, the partition process is done in parallel. Theoretically, it could be interesting to envisage a parallel readinig, but from what I understood, the gain using ParMETIS is not really huge. Moreover, I'm not sure that a naive block reading (each process reading contiguous blocks of same size) would suit with ParMETIS and it may require to reorganize the data before the partition, which could be costly.
 
+### Partition with SFC
+
     Sequential Reading (current) -> Parallel Partitioning (SFC) (not integrated yet)
+
+### Parallel reading
 
 Since SFC does not care about how the elements are distributed amongst the processes, this is the partition that suits the most to our parallel reading approach relying on dividing each section in blocks and attributing an equal subset to each process, whitout taking into account the data value itself in this attribution.
 
@@ -204,10 +211,6 @@ Several solutions:
   - It's easy to determine who owns a node according to its id
   - Memory saving
 - **[...]**
-
-  
-
-    Parallel Reading (objective) -> Parallel Partitioning (ParMETIS or SFC?)
 
 
 # Analysis of Code-Saturn
