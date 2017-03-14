@@ -207,14 +207,18 @@ Several solutions:
 - **All the node information is mutualized between the processes prior to the partitioning**.
   - Close to the current code in which the master distributes all the information to the process.
   - Theoretically and practically simple
-  - This is costly in term of bandwidth and memory consuming.
+  - Memory consuming
+  - Once the sharing is done, all the processes have access to the data and thus do not require extra communications
   - `MPI_Allgather`
 - **Only necessary nodes are shared between the processes**
   - Requires to modifiy the partition code more deeply
   - Requires preprocessing
   - It's easy to determine who owns a node according to its id
   - Memory saving
-  - Actually we can use a `distributed array`, such as described [here](http://mpi-forum.org/docs/mpi-2.2/mpi22-report/node73.htm)
+  - May lead to irregular communication patterns and decrease performance
+  - We could use a `distributed array`, such as described [here](http://mpi-forum.org/docs/mpi-2.2/mpi22-report/node73.htm)
+    - Also see [Fortran Co-Array](http://www.polyhedron.com/web_images//intel/productbriefs/8_CAF.pdf)
+    - Or [MPI RMA](http://wgropp.cs.illinois.edu/courses/cs598-s16/lectures/lecture34.pdf)
 - **[...]**
 
 
