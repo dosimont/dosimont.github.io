@@ -135,8 +135,10 @@ or by defining an arbitrary number of elements per row. This information should 
 
 This [page](https://en.wikipedia.org/wiki/STL_(file_format)) offers a good example of a binary format through the STL format specification.
 
-Another possibility is to use an already-existing description format, such as the [ParaView](http://www.paraview.org/Wiki/ParaView/Data_formats) format. Basically, it seems that such formats are composed of a binary, which contains the data, and a separate xml file containing the metadata. Another exemple following this structure is [VTK](http://www.paraview.org/Wiki/ParaView/Data_formats). Thes question is: are one of these file formats able to represent all the data required by Alya? If yes, the idea would be to follow one of the popular _standard_ format.
+Another possibility is to use an already-existing description format, such as the ones used by [ParaView](http://www.paraview.org/Wiki/ParaView/Data_formats). Basically, it seems that such formats are composed of a binary, which contains the data, and a separate xml file containing the metadata. An exemple following this structure is [VTK](http://www.cacr.caltech.edu/~slombey/asci/vtk/vtk_formats.simple.html). Thes question is: are one of these file formats able to represent all the data required by Alya? If yes, the idea would be to follow one of the popular _standard_ format.
 Some [fortran libraries](http://xml-fortran.sourceforge.net/) already exist to parse/generate xml, which could be convenient to deal with the metadata.
+
+This page explains the [parallel pipeline](http://www.vtk.org/Wiki/VTK/Parallel_Pipeline) used by VTK.
 
 # Parallel Workflow
 
