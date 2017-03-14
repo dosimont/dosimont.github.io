@@ -139,6 +139,7 @@ Another possibility is to use an already-existing description format, such as th
 Some [fortran libraries](http://xml-fortran.sourceforge.net/) already exist to parse/generate xml, which could be convenient to deal with the metadata.
 
 This page explains the [parallel pipeline](http://www.vtk.org/Wiki/VTK/Parallel_Pipeline) used by VTK.
+Another link for [parallel reading of mesh files](http://www.paraview.org/ParaView/index.php/Parallel_I/O#Optimized_Parallel_Readers).
 
 # Parallel Workflow
 
