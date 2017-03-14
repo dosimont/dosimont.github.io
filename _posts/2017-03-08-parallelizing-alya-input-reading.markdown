@@ -211,11 +211,10 @@ Several solutions:
   - Once the sharing is done, all the processes have access to the data and thus do not require extra communications
   - `MPI_Allgather`
 - **Only necessary nodes are shared between the processes**
-  - Requires to modifiy the partition code more deeply
-  - Requires preprocessing
   - It's easy to determine who owns a node according to its id
   - Memory saving
   - May lead to irregular communication patterns and decrease performance
+  - This kind of unstructured communication patterns are very difficult to implement in MPI
   - We could use a `distributed array`: 
     - [MPI Distributed arrays](http://mpi-forum.org/docs/mpi-2.2/mpi22-report/node73.htm)
     - [Fortran Co-Array](http://www.polyhedron.com/web_images//intel/productbriefs/8_CAF.pdf)
