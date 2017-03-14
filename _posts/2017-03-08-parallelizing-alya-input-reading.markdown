@@ -216,9 +216,10 @@ Several solutions:
   - It's easy to determine who owns a node according to its id
   - Memory saving
   - May lead to irregular communication patterns and decrease performance
-  - We could use a `distributed array`, such as described [here](http://mpi-forum.org/docs/mpi-2.2/mpi22-report/node73.htm)
-    - Also see [Fortran Co-Array](http://www.polyhedron.com/web_images//intel/productbriefs/8_CAF.pdf)
-    - Or [MPI RMA](http://wgropp.cs.illinois.edu/courses/cs598-s16/lectures/lecture34.pdf)
+  - We could use a `distributed array`: 
+    - [MPI Distributed arrays](http://mpi-forum.org/docs/mpi-2.2/mpi22-report/node73.htm)
+    - [Fortran Co-Array](http://www.polyhedron.com/web_images//intel/productbriefs/8_CAF.pdf)
+    - [MPI RMA](http://wgropp.cs.illinois.edu/courses/cs598-s16/lectures/lecture34.pdf)
 - **[...]**
 
 
