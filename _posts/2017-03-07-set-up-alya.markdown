@@ -21,11 +21,11 @@ Dependencies:
 
 Download the svn repository (requires an access to BSC's network):
 
-    svn co svn+ssh://[user]@dt01.bsc.es/gpfs/projects/bsc21/svnroot/Alya/Trunk/
+    svn co svn+ssh://[user]@dt01.bsc.es/gpfs/projects/bsc21/svnroot/Alya/
 
  Using `git+svn`:
 
-    git svn clone svn+ssh://[user]@dt01.bsc.es/gpfs/projects/bsc21/svnroot/Alya/Trunk/
+    git svn clone svn+ssh://[user]@dt01.bsc.es/gpfs/projects/bsc21/svnroot/Alya/
 
 
   
