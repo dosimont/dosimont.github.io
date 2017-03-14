@@ -175,7 +175,7 @@ For the sequential reading, two possibilities:
     Sequential Reading (current) -> Parallel Partitioning (ParMETIS) (??)
 
 
-This time, the partition process is done in parallel. Theoretically, it could be interesting to envisage a parallel readinig, but from what I understood, the gain using ParMETIS is not really huge. Moreover, I'm not sure that a naive block reading (each process reading contiguous blocks of same size) would suit with ParMETIS and it may require to reorganize the data before the partition, which could be costly.
+This time, the partition process is done in parallel. Theoretically, it could be interesting to envisage a parallel readinig, but from what I understood, the gain using ParMETIS is not really huge. Moreover, I'm not sure that a naive block reading (each process reading contiguous blocks of same size) would suit to ParMETIS and it may require to reorganize the data before the partition, which could be costly.
 
 ### Partition with SFC
 
@@ -205,11 +205,13 @@ Several solutions:
   - Close to the current code in which the master distributes all the information to the process.
   - Theoretically and practically simple
   - This is costly in term of bandwidth and memory consuming.
+  - `MPI_Allgather`
 - **Only necessary nodes are shared between the processes**
   - Requires to modifiy the partition code more deeply
   - Requires preprocessing
   - It's easy to determine who owns a node according to its id
   - Memory saving
+  - Actually we can use a `distributed array`, such as described [here](http://mpi-forum.org/docs/mpi-2.2/mpi22-report/node73.htm)
 - **[...]**
 
 
