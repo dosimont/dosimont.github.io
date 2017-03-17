@@ -40,7 +40,7 @@ Copy the configuration file related to your compiler/platform. Ex: compiling usi
 
 Compile
 
-    ./configure -x nastin parall
+    ./configure -x turbul nastin parall
     make metis4
     make -j[number of processor]
 
