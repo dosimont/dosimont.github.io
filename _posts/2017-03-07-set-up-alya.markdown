@@ -38,12 +38,26 @@ Copy the configuration file related to your compiler/platform. Ex: compiling usi
 
     cp configure.in/config_gfort.in config.in"
 
-Compile
+Compile the nastin module
 
     ./configure -x turbul nastin parall
     make metis4
     make -j[number of processor]
 
+## Launch a test case
 
+Download the svn repository of the test suite:
+
+    git svn clone svn+ssh://bsc21759@dt01.bsc.es/gpfs/projects/bsc21/bsc21903/svnroot/Alya-TS/modules Alya-TS
+
+Go into one of the test case directory (for instance `cavtri03_fs`)
+
+    cd Alya-TS/nastin/cavtri03_fs
+
+Launch Alya:
+
+    /path-to-Alya-svn/Trunk/Executables/unix/Alya.x cavtri03_fs
+
+  
 
 
