@@ -15,9 +15,11 @@ SFC enables to do this operation in parallel with an interesting performance, if
 
 Our objective here is to give some insights about SFC since this is the partitioning strategy we'll use with the parallel reading of the mesh files.
 
+_It will be necessary to enable SFC to perform the reading in parallel_
+
 # Enable SFC in Alya
 
-In the `*.dat` file related to your case, write the following lines:
+In the `*.dat` file related to your case, write or replace the existing related settings by the following lines:
 
     PARALL_SERVICE:           On
       PARTITION:              FACES
@@ -26,7 +28,7 @@ In the `*.dat` file related to your case, write the following lines:
       END_PARTITIONING
     END_PARALL_SERVICE
 
-Launch your case using MPI (SFC does not work in sequential)
+Launch your case using MPI (SFC is not launched in sequential since there is no mesh partitioning for only one running process)
 
     mpirun -np N Alya.x case
 
@@ -35,11 +37,37 @@ Launch your case using MPI (SFC does not work in sequential)
 
 The code related to SFC is located in `/Sources/kernel/parall/mod_par_partit_sfc.f90`.
 
-In order to connect SFC to the parallel reading, we'll need to intervene in the first routines called by `par_partit_sfc(lepar,npart)`:
+In order to connect SFC to the parallel reading, we'll need to intervene in the first routines called by `par_partit_sfc(lepar,npart)`.
 
-    call par_slaves_communicator_sfc()
+## `call par_slaves_communicator_sfc()`
 
-This routine sets up the communicators. We won't need to touch it. However, we should use the same mechanism to define the MPI communicators for the reading. In particular, we need the same number of slave processes.
+This routine sets up the communicators. We should use the same mechanism to define the MPI communicators for the reading (or define these communicators earlier). In particular, we need the same number of slave processes. Careful: the number of slaves `S` is such that `S = N^2 < P` and `(N+1)^2 > P` with `P` the total number of Alya's processes.
+
+_There is a known bug if P=M^2: for instance if P=64, S=64_
+
+There is a part in which the master broadcasts information to the slaves. This will probably be redundant with the reading since we'll need this information earlier:
+
+    call PAR_BROADCAST(nelem,'IN MASTER PARTITION')
+    call PAR_BROADCAST(npoin,'IN MASTER PARTITION')
+    call PAR_BROADCAST(nelty,ngaus,'IN MASTER PARTITION')
+    call PAR_BROADCAST(mnode,'IN MASTER PARTITION')
+
+## `par_distribute_mesh_sfc()`
+
+This routine should be completely ignored if the parallel reading has been enabled since it is responsible of distributing the data (nodes, coordinates and elements) amongst the partitioning processes, thing that would be done already if we used the parallel reading. 
+However, what we need is setting up the same arrays and variables as this routine, in order to make them available for the next routines.
+
+Here are the variables:
+    
+    ltype_par     ! ltype block
+    lnods_par     ! lnods block
+    coord_par     ! coords block
+    nelem_part    ! number of elements for each process (the last one has a different value)
+    npoin_part    ! number of points for each process (the last one has a different value)
+
+## `par_exchange_coordinates_sfc()`
+
+This routine exchanges the coordinates between the slave processes. We should not need to touch it at all.
 
 
 
