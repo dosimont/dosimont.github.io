@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Set Up Alya"
-modified: 2017-03-17
+modified: 2017-03-21
 categories: 
 excerpt:
 tags: []
@@ -44,6 +44,10 @@ Compile the nastin module
     make metis4
     make -j[number of processor]
 
+I recommend to set up your PATH directory in your .bashrc file so you can run Alya without specifying its whole path.
+
+   export PATH=$PATH:/path/to/Alya/Executables/unix/:/path/to/Alya/Utils/user/:/path/to/Alya/Utils/user/alya2pos/ 
+
 ## Launch a test case
 
 Download the svn repository of the test suite:
@@ -56,7 +60,13 @@ Go into one of the test case directory (for instance `cavtri03_fs`)
 
 Launch Alya:
 
-    /path-to-Alya-svn/Trunk/Executables/unix/Alya.x cavtri03_fs
+    Alya.x cavtri03_fs
+
+with MPI
+
+    mpirun -np N Alya.x cavtri03_fs
+
+with N the number of MPI processes you want.
 
   
 

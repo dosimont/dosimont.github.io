@@ -1,0 +1,45 @@
+---
+layout: post
+title: "SFC"
+modified: 2017-03-21
+categories: 
+excerpt:
+tags: [Alya]
+image:
+  feature:
+date: 2017-03-21
+---
+
+SFC Partitioning is used in Alya as an alternative to METIS and ParMETIS to partition the meshes.
+SFC enables to do this operation in parallel with an interesting performance, if we compare with ParMETIS.
+
+Our objective here is to give some insights about SFC since this is the partitioning strategy we'll use with the parallel reading of the mesh files.
+
+# Enable SFC in Alya
+
+In the `*.dat` file related to your case, write the following lines:
+
+    PARALL_SERVICE:           On
+      PARTITION:              FACES
+      PARTITIONING:
+        METHOD:               SFC
+      END_PARTITIONING
+    END_PARALL_SERVICE
+
+Launch your case using MPI (SFC does not work in sequential)
+
+    mpirun -np N Alya.x case
+
+
+#Code analysis
+
+The code related to SFC is located in `/Sources/kernel/parall/mod_par_partit_sfc.f90`.
+
+In order to connect SFC to the parallel reading, we'll need to intervene in the first routines called by `par_partit_sfc(lepar,npart)`:
+
+    call par_slaves_communicator_sfc()
+
+This routine sets up the communicators. We won't need to touch it. However, we should use the same mechanism to define the MPI communicators for the reading. In particular, we need the same number of slave processes.
+
+
+
