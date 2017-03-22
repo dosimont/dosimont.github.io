@@ -33,13 +33,13 @@ Launch your case using MPI (SFC is not launched in sequential since there is no 
     mpirun -np N Alya.x case
 
 
-#Code analysis
+# Code analysis
 
 The code related to SFC is located in `/Sources/kernel/parall/mod_par_partit_sfc.f90`.
 
 In order to connect SFC to the parallel reading, we'll need to intervene in the first routines called by `par_partit_sfc(lepar,npart)`.
 
-## `call par_slaves_communicator_sfc()`
+### `call par_slaves_communicator_sfc()`
 
 This routine sets up the communicators. We should use the same mechanism to define the MPI communicators for the reading (or define these communicators earlier). In particular, we need the same number of slave processes. Careful: the number of slaves `S` is such that `S = N^2 < P` and `(N+1)^2 > P` with `P` the total number of Alya's processes.
 
@@ -52,7 +52,7 @@ There is a part in which the master broadcasts information to the slaves. This w
     call PAR_BROADCAST(nelty,ngaus,'IN MASTER PARTITION')
     call PAR_BROADCAST(mnode,'IN MASTER PARTITION')
 
-## `par_distribute_mesh_sfc()`
+### `par_distribute_mesh_sfc()`
 
 This routine should be completely ignored if the parallel reading has been enabled since it is responsible of distributing the data (nodes, coordinates and elements) amongst the partitioning processes, thing that would be done already if we used the parallel reading. 
 However, what we need is setting up the same arrays and variables as this routine, in order to make them available for the next routines.
@@ -65,7 +65,7 @@ Here are the variables:
     nelem_part    ! number of elements for each process (the last one has a different value)
     npoin_part    ! number of points for each process (the last one has a different value)
 
-## `par_exchange_coordinates_sfc()`
+### `par_exchange_coordinates_sfc()`
 
 This routine exchanges the coordinates between the slave processes. We should not need to touch it at all.
 
