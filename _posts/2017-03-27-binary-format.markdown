@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Binary Format"
-modified: 2017-03-27
+modified: 2017-03-28
 categories: 
 excerpt:
 tags: [Alya]
@@ -19,14 +19,14 @@ Problem: Record-based versus Stream I/O. See [here](http://www.star.le.ac.uk/~cg
     ------------------------------------------------------------------------
     Magic number (signed int 32 bits):        27093
     --Alignment (signed int 32 bits):         0
-    Format (char* 64 bits):                   MPIOALYA
-    Version (char* 64 bits):                  V0000001
-    Object (char* 64 bits):                   ELEMENTS/NODES000/COORDS00
-    Type int/real (char* 64 bits):            INTEGER0/REAL0000
-    Size (char* 64 bits):                     4BYTES00/8BYTES00
-    Sorting (char* 64 bits):                  ASCENDIN/DESCENDI/NONE0000
-    Id (char* 64 bits):                       YES00000/NO000000
-    --Alignment (char* 64 bits):              00000000
+    Format (char* 64 bits):                   MPOALYA
+    Version (char* 64 bits):                  V000001
+    Object (char* 64 bits):                   LNODS00/LTYPE00/LNODS00
+    Type int/real (char* 64 bits):            INTEGER/REAL000
+    Size (char* 64 bits):                     4BYTES0/8BYTES0
+    Sorting (char* 64 bits):                  ASCENDI/DESCEND/NONE000
+    Id (char* 64 bits):                       YES0000/NO00000
+    --Alignment (char* 64 bits):              0000000
     Lines (signed int 32 bits):               nlines
     Columns (signed int 32 bits):             ncolumns (id not counted)
     ------------------------------------------------------------------------
