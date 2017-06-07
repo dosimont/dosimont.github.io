@@ -49,15 +49,15 @@ Compile:
 You may want to record some statistics about the time passed in each I/O operation.
 In this case, you have to add the following line to the `config.in` file before executing `configure`:
 
-  CSALYA   := $(CSALYA) -DBENCHMARK
+    CSALYA   := $(CSALYA) -DBENCHMARK
 
 ## Convert your mesh files
 
-The parallel I/O feature requires a specific file format. It is described here.
+The parallel I/O feature requires a specific file format
 This format is used for the mesh description as well as for the field files (in input, post process or restart).
 Consequently, it is necessary to convert the ascii file format commonly used by Alya into this new format.
 
-You can use the Alya to MPI-IO tool available here. Compile it as follow:
+You can use the Alya to MPI-IO tool available [https://github.com/dosimont/alya-mpio-tools](here). Compile it as follow:
 
     $ git clone https://github.com/dosimont/alya-mpio-tools.git
     $ cd alya-mpio-tools
