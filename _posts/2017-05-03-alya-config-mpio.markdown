@@ -53,7 +53,7 @@ In this case, you have to add the following line to the `config.in` file before 
 
 ## Convert your mesh files
 
-The parallel I/O feature requires a [specific file format](/site/posts/binary-format).
+The parallel I/O feature requires a [specific file format](/binary-format).
 This format is used for the mesh description as well as for the field files (in input, post process or restart).
 Consequently, it is necessary to convert the ascii file format commonly used by Alya into this new format.
 
