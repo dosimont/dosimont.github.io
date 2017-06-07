@@ -114,15 +114,15 @@ Becomes:
     
 ## Configure
 
-  PARALL_SERVICE:         On
-    IO:                   On
-      READING:            On
-      REORDERING:         On
-      RESTART:            On
-      COMMUNICATOR:       SFC
-    END_IO
-    PARTITION:            FACES
-    PARTITIONING:
-      METHOD:              SFC
-    END_PARTITIONING
-  END_PARALL_SERVICE
+    PARALL_SERVICE:         On
+      IO:                   On
+        READING:            On
+        REORDERING:         On
+        RESTART:            On
+        COMMUNICATOR:       SFC
+      END_IO
+      PARTITION:            FACES
+      PARTITIONING:
+        METHOD:              SFC
+      END_PARTITIONING
+    END_PARALL_SERVICE
