@@ -49,7 +49,7 @@ Problem: Record-based versus Stream I/O. See [here](http://www.star.le.ac.uk/~cg
     --Alignment (signed int 32 bits):         0
     Format (char* 64 bits):                   MPIAL00 
     Version (char* 64 bits):                  V000200
-    Object (char* 64 bits):                   LNODS00/LTYPE00/LNODS00/LTYPB00...
+    Object (char* 64 bits):                   COORD00/LTYPE00/LNODS00/LTYPB00...
     Dimension (char* 64 bits)                 SCALA00/VECTOR0
     Results on (char* 64 bits)                NELEM00/NPOIN00/NBOUN00
     Type int/real (char* 64 bits):            INTEG00/REAL000
