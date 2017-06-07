@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "Alya MPI-IO configuration"
-modified: 2017-03-28
+modified: 2017-05-03
 categories: 
 excerpt:
 tags: [Alya]
 image:
   feature:
-date: 2017-03-27
+date: 2017-06-07
 ---
 
 We describe on this page how to use the parallel I/O feature newly implemented into Alya.
