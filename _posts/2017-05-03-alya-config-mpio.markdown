@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Alya MPI-IO configuration"
+title: "Using Alya's parallel I-O"
 modified: 2017-05-03
 categories: 
 excerpt:
