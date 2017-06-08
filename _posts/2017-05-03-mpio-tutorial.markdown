@@ -141,10 +141,15 @@ The field `READING` enables (`ON`) or disables (`OFF`) the parallel reading of t
 The field `REORDERING` enables (`ON`) or disables (`OFF`) the parallel writing of a renumbered mesh.
 This renumbered mesh is generated after the partition.
 The field `RESTART` enables (`ON`) or disables (`OFF`) the parallel writing and reading of the postprocess and restart files.
-Note that this option will erase the post/restart format specification, since only the MPIO binary format is compatible with the parallel I/O.
+
+> Note that this option will erase the post/restart format specification, since only the MPIO binary format is compatible with the parallel I/O.
+
 The field `COMMUNICATOR` specifies the strategy to define the communicator responsible for the input mesh file reading.
 You can choose between `SFC` and `MODULO n` with n an integer from 1.
 If the partitioning method defined in the section `PARTITIONING` is `SFC`, it is strongly advised to select `SFC` in the `IO` section `COMMUNICATOR` field too.
-Note that the `SFC` strategy is compatible with any of the partitioning techniques (METIS, etc.).
+
+> Note that the `SFC` strategy is compatible with any of the partitioning techniques (METIS, etc.).
+
 The `MODULO n` technique defines a communicator of `m` processes such that `m=1+(nprocs-1)/n`.
-Note that the writing and reading of the postprocess and restart files use the default Alya's communicator, involving all the processes. Currently, this cannot be modified.
+
+> Note that the writing and reading of the postprocess and restart files use the default Alya's communicator, involving all the processes. Currently, it cannot be modified.
