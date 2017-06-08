@@ -152,4 +152,4 @@ If the partitioning method defined in the section `PARTITIONING` is `SFC`, it is
 
 The `MODULO n` technique defines a communicator of `m` processes such that `m=1+(nprocs-1)/n`.
 
-> Note that the writing and reading of the postprocess and restart files use the default Alya's communicator, involving all the processes. Currently, it cannot be modified.
+> Note that the writing and reading of the postprocess and restart files use Alya's default communicator, involving all the processes. Currently, it cannot be modified.
