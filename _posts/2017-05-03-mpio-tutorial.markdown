@@ -146,5 +146,5 @@ The field `COMMUNICATOR` specifies the strategy to define the communicator respo
 You can choose between `SFC` and `MODULO n` with n an integer from 1.
 If the partitioning method defined in the section `PARTITIONING` is `SFC`, it is strongly advised to select `SFC` in the `IO` section `COMMUNICATOR` field too.
 Note that the `SFC` strategy is compatible with any of the partitioning techniques (METIS, etc.).
-The `MODULO n` technique defines a communicator of m processes such that m=1+(nprocs-1)/n.
+The `MODULO n` technique defines a communicator of `m` processes such that `m=1+(nprocs-1)/n`.
 Note that the writing and reading of the postprocess and restart files use the default Alya's communicator, involving all the processes. Currently, this cannot be modified.
