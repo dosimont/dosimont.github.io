@@ -49,7 +49,7 @@ Compile:
 You may want to record some statistics about the time passed in each I/O operation.
 In this case, you have to add the following line to the `config.in` file before executing `configure`:
 
-    CSALYA   := $(CSALYA) -DBENCHMARK
+    CSALYA   := $(CSALYA) -DMPIOLOG
 
 ## Convert your mesh file
 
@@ -57,7 +57,9 @@ The parallel I/O feature requires a [specific file format](/binary-format).
 This format is used for the mesh description as well as for the fields (input, post process or restart files).
 Consequently, it is necessary to convert the ascii input file describing the mesh into this new format.
 
-You can use the Alya to MPI-IO tool available [here](https://github.com/dosimont/alya-mpio-tools). Compile it as follow:
+You can use the Alya to MPI-IO tool available [here](https://github.com/dosimont/alya-mpio-tools).
+Be sure to install all the required dependencies (boost, mpi, vtk).
+Compile it as follow:
 
     $ git clone https://github.com/dosimont/alya-mpio-tools.git
     $ cd alya-mpio-tools
@@ -74,19 +76,12 @@ Refer to CMake's documentation to change the installation path or the compilatio
 
 Once you have installed the tool, convert your mesh file as follow:
 
-    $ mpio-alya -e [n] -b [m] -n [case-name] [geometry-file]
+    $ alya2mpio [case-name]
 
-The options `-e`, `-b` are not mandatory but strongly advised to optimize the resulting binary file.
-`-e n` defines the maximum number of points `n` that an element contains in the mesh file.
-`-b m` defines the maximum number of points `m` that a boundary contains in the mesh file.
-Both options help to correctly align the binary file records, which is essential to allow an efficient parallel reading.
-
-`-n case-name` defines the string used to name the output files.
-
-`geometry-file` is the file containing the geometry data. Be aware that you have to specify the file that actually contains the data; the includes are not considered by the tool.
+case-name` defines the string used to name the output files.
 
 Running the tool will generate several files with the extension `.mpio.bin`.
-Note that the tool only considers the following fields:
+Note that the tool only considers the following fields for the moment:
 
   - `NODES_PER_ELEMENT`
   - `TYPES`
@@ -118,11 +113,11 @@ Here, an example of the `PARALL_SERVICE` section:
         READING:            On
         REORDERING:         On
         RESTART:            On
-        COMMUNICATOR:       SFC
+        COMMUNICATOR:       ALL
       END_IO
       PARTITION:            FACES
       PARTITIONING:
-        METHOD:              SFC
+        METHOD:              METIS 4
       END_PARTITIONING
     END_PARALL_SERVICE
 
@@ -134,7 +129,7 @@ To activate the parallel I/O, you need to define the `IO` section inside the `PA
         READING:            On
         REORDERING:         On
         RESTART:            On
-        COMMUNICATOR:       SFC
+        COMMUNICATOR:       ALL
       END_IO
 
 The field `READING` enables (`ON`) or disables (`OFF`) the parallel reading of the mesh file.
@@ -145,11 +140,23 @@ The field `RESTART` enables (`ON`) or disables (`OFF`) the parallel writing and 
 > Note that this option will erase the post/restart format specification, since only the MPIO binary format is compatible with the parallel I/O.
 
 The field `COMMUNICATOR` specifies the strategy to define the communicator responsible for the input mesh file reading.
-You can choose between `SFC` and `MODULO n` with n an integer from 1.
+You can choose between `ALL` and `SFC`. All will select all the processes to perfom the mesh reading while SFC will only use a subset of the processes in coherency with the SFC partitioning.
 If the partitioning method defined in the section `PARTITIONING` is `SFC`, it is strongly advised to select `SFC` in the `IO` section `COMMUNICATOR` field too.
 
-> Note that the `SFC` strategy is compatible with any of the partitioning techniques (METIS, etc.).
-
-The `MODULO n` technique defines a communicator of `m` processes such that `m=1+(nprocs-1)/n`.
-
+> Note that the `SFC` communicator strategy is compatible with any of the partitioning techniques (METIS, etc.) but not recommended if you do not use the `SFC` partioning.
+> It seems that the `SFC` may be bugged for certain values of process number. I advise you to launch alya with n²+1 processes when using `SFC`.
 > Note that the writing and reading of the postprocess and restart files use Alya's default communicator, involving all the processes. Currently, it cannot be modified.
+> Use at least 3 processes to launch Alya when MPI-IO is enabled.
+
+## Convert the output file to vtk
+
+Once you run Alya, it will generate post-processed and restart files (all the files generated using MPI-IO have the extension `.mpio.bin`).
+These files contain data about the mesh, which has been rewritten by Alya, and about fields (pressure, velocity, etc.).
+Since `.mpio.bin` is a format exclusive to Alya, you certainly will need to convert the files to another format to visualize them.
+The alya-mpio-tools set proposes a vtk converter.
+
+    $ mpirun -np [n] mpio2vtk -r [case-name]
+
+will convert the post-processed mesh files and the fields to vtk files. Be sure to set [n] to at least the number of processes -1 used to perform the simulation, since the `mpio.bin` files have subdomains.
+The easiest is to run the tool just after the simulation. In the future version, we'll take to get rid of this limitation.
+

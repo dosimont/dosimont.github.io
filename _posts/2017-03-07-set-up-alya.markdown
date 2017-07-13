@@ -46,7 +46,7 @@ Compile the nastin module
 
 I recommend to set up your PATH directory in your .bashrc file so you can run Alya without specifying its whole path.
 
-   export PATH=$PATH:/path/to/Alya/Executables/unix/:/path/to/Alya/Utils/user/:/path/to/Alya/Utils/user/alya2pos/ 
+    export PATH=$PATH:/path/to/Alya/Executables/unix/:/path/to/Alya/Utils/user/:/path/to/Alya/Utils/user/alya2pos/ 
 
 ## Launch a test case
 
