@@ -144,8 +144,11 @@ You can choose between `ALL` and `SFC`. All will select all the processes to per
 If the partitioning method defined in the section `PARTITIONING` is `SFC`, it is strongly advised to select `SFC` in the `IO` section `COMMUNICATOR` field too.
 
 > Note that the `SFC` communicator strategy is compatible with any of the partitioning techniques (METIS, etc.) but not recommended if you do not use the `SFC` partioning.
+
 > It seems that the `SFC` may be bugged for certain values of process number. I advise you to launch alya with n²+1 processes when using `SFC`.
+
 > Note that the writing and reading of the postprocess and restart files use Alya's default communicator, involving all the processes. Currently, it cannot be modified.
+
 > Use at least 3 processes to launch Alya when MPI-IO is enabled.
 
 ## Convert the output file to vtk
