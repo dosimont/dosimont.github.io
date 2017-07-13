@@ -78,7 +78,7 @@ Once you have installed the tool, convert your mesh file as follow:
 
     $ alya2mpio [case-name]
 
-case-name` defines the string used to name the output files.
+`case-name` defines the string used to name the output files.
 
 Running the tool will generate several files with the extension `.mpio.bin`.
 Note that the tool only considers the following fields for the moment:
